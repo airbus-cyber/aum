@@ -1,0 +1,131 @@
+#    AUM: Airbus Unit tests with Mocks for C. AUM is a unit testing framework for C that allows the easy definition and request of mocks.
+#    Copyright (C) 2019  Airbus Defence and Space
+#
+#    You should have received a copy of the AUTHORS.md file which lists all contributors.
+#
+#    This library is free software; you can redistribute it and/or
+#    modify it under the terms of the GNU Lesser General Public
+#    License as published by the Free Software Foundation; either
+#    version 2.1 of the License, or (at your option) any later version.
+#
+#    This library is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#    Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public
+#    License along with this library; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+ifndef NAME
+  $(error "Variable NAME should be defined")
+endif
+
+################################################################################
+# Inclusion du fichier de définition généré par le configure                   #
+################################################################################
+
+MAKEFILE_DEFS_FILE=Makefile.defs
+
+include $(MAKEFILE_DEFS_FILE)
+
+SCRIPT_DIR=./build
+
+include $(SCRIPT_DIR)/help.Makefile
+include $(SCRIPT_DIR)/verbose.Makefile
+
+include $(SCRIPT_DIR)/conventions.Makefile
+
+
+################################################################################
+# Commands                                                                     #
+################################################################################
+
+VALGRIND_OPTIONS=--leak-check=yes --track-fds=yes --xml=yes --verbose --tool=memcheck --leak-resolution=high \
+--undef-value-errors=yes --track-origins=yes --trace-children=no --show-reachable=yes --child-silent-after-fork=no --vgdb=no
+VALGRIND=valgrind $(VALGRIND_OPTIONS)
+
+
+PKGCONFIG=PKG_CONFIG_PATH=$(CONFIG_LIBDIR)/pkgconfig pkg-config
+
+COMMAND_SUCCESS=0
+
+################################################################################
+# Options de compilation et d'édition de lien                                  #
+################################################################################
+
+help_variables::
+	$(info NAME              Project name)
+	$(info VERSION           Project version number)
+	$(info DESCRIPTION       Project description)
+	$(info DEPENDS           Dependences for binary)
+
+PKG_DEPENDS_CFLAGS=$(shell $(PKGCONFIG) --cflags $(DEPENDS) 2> /dev/null)
+
+PKG_DEPENDS_LDFLAGS=$(shell $(PKGCONFIG) --libs $(DEPENDS) 2> /dev/null)
+LDFLAGS+=$(PKG_DEPENDS_LDFLAGS)
+
+################################################################################
+# Vérification de la présence des dépendances                                  #
+################################################################################
+
+PKG_DEPENDS_RESULTS=$(shell $(PKGCONFIG) --cflags $(DEPENDS) 2>&1 > /dev/null ; echo $$?)
+
+ifneq ($(DEPENDS),)
+ifneq ($(PKG_DEPENDS_RESULTS), $(COMMAND_SUCCESS))
+$(error Unknown dependence among: $(DEPENDS))
+endif
+endif
+
+################################################################################
+# Fonctions                                                                    #
+################################################################################
+
+GENERATE_FDLEAK_REPORT=$(SCRIPT_DIR)/generate_fdleak_report.sh
+CLEAN_VALGRIND_REPORT=$(SCRIPT_DIR)/clean_valgrind_report.sh
+
+PKG_DEPENDS_LIBRARY_PATH=$(shell $(PKGCONFIG) --variable=libdir $(DEPENDS) 2> /dev/null | tr ' ' ':')
+
+
+include $(SCRIPT_DIR)/build.Makefile
+
+include $(SCRIPT_DIR)/testu.Makefile
+include $(SCRIPT_DIR)/testc.Makefile
+include $(SCRIPT_DIR)/static_checks.Makefile
+include $(SCRIPT_DIR)/version.Makefile
+include $(SCRIPT_DIR)/clean.Makefile
+
+include $(SCRIPT_DIR)/doc.Makefile
+
+include $(SCRIPT_DIR)/package.Makefile
+include $(SCRIPT_DIR)/debian.Makefile
+include $(SCRIPT_DIR)/source_tar.Makefile
+
+include $(SCRIPT_DIR)/jenkins.Makefile
+
+################################################################################
+# TODO everything after this point is specific and should be moved out of Makefile.generic
+################################################################################
+
+################################################################################
+# Developer documentation                                                      #
+################################################################################
+
+RESULTS_API_DIR=$(RESULTS_DIR)/api
+RESULTS_API_DOC=$(RESULTS_API_DIR)/html
+
+.PHONY: dev_doc
+
+dev_doc: $(RESULTS_API_DOC)
+
+$(RESULTS_API_DOC): | $(RESULTS_API_DIR)
+	$(V) ( cat $(DOC_DIR)/developer.Doxyfile; echo "OUTPUT_DIRECTORY=$(RESULTS_API_DIR)") | $(DOXYGEN) -
+
+
+$(RESULTS_API_DIR):
+	@ $(MKDIR) $@
+
+help::
+	$(info dev_doc       Génération de la documentation de l'API publique dans '$(RESULTS_API_DIR)')
+

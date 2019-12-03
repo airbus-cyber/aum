@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite name="test_suite_simple" tests="16" errors="10" failures="0" skipped="1">
+	<testcase classname="test_suite_simple" name="AUM_FAIL__should_always_fail" time="0.0">
+		<failure>
+Test failed at line 9 in file tests/component/src/test_suite_simple.c: AUM_FAIL - Echec volontaire du test000
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_EQUAL__should_succeed_with_same_values" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_EQUAL__should_fail_with_different_values" time="0.0">
+		<failure>
+Test failed at line 19 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_EQUAL(1, 0) - 
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_STRING_EQUAL__should_succeed_with_same_strings" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_STRING_EQUAL__should_fail_with_different_strings" time="0.0">
+		<failure>
+Test failed at line 29 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_STRING_EQUAL("true", "false") - Expected "true", but was "false"
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_NULL__should_succeed_with_NULL_pointer" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_NULL__should_fail_with_non_NULL_pointer" time="0.0">
+		<failure>
+Test failed at line 41 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_PTR_NULL(fake_ptr) - Pointer expected to be (nil), but was 0xdeadbeef
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_NOT_NULL__should_succeed_with_non_NULL_pointer" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_NOT_NULL__should_fail_with_NULL_pointer" time="0.0">
+		<failure>
+Test failed at line 53 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_PTR_NOT_NULL(NULL)
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_EQUAL__should_succeed_with_same_pointer" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_PTR_EQUAL__should_fail_with_different_pointers" time="0.0">
+		<failure>
+Test failed at line 65 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_PTR_EQUAL(NULL, fake_ptr) - Expected (nil), but was 0xdeadbeef
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_FAIL__should_stop_test_execution" time="0.0">
+		<failure>
+Test failed at line 70 in file tests/component/src/test_suite_simple.c: AUM_FAIL - First failure
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_EQUAL__should_print_runtime_value" time="0.0">
+		<failure>
+Test failed at line 77 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_EQUAL(1, x) - Expected x to be 1, but was 0
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_FAIL_can_print_a_value" time="0.0">
+		<failure>
+Test failed at line 87 in file tests/component/src/test_suite_simple.c: AUM_FAIL - The value of x is 0
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_MEMORY_EQUAL__should_succeed_with_same_array_content" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_ASSERT_MEMORY_EQUAL__should_fail_with_different_array_content" time="0.0">
+		<failure>
+Test failed at line 99 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_MEMORY_EQUAL("hello", "world") - Expected "hel", but was "wor"
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_TEST_IGNORE__should_skip_the_test" time="0.0">
+		<skipped />
+	</testcase>
+</testsuite>
+<testsuite name="test_suite_with_mock" tests="21" errors="4" failures="0" skipped="0">
+	<testcase classname="test_suite_with_mock" name="aum_mock_will_return__should_succeed" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_will_return__should_modify_behavior_of_all_subsequent_calls" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_reset__should_clean_will_return" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_will_return_at_third_call__should_succeed" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_will_return_at__should_ignore_preceding_calls_to_the_mock" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_will_execute__should_install_fake_function" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_get_call_count__should_count_function_calls" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_reset__should_clean_call_count" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED__should_succeed_if_function_called" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED__should_failed_if_function_not_called" time="0.0">
+		<failure>
+Test failed at line 137 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED("malloc") - Function malloc was never called
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_CALL_COUNT_EQUAL__should_succeed" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="aum_mock_arguments_register__should_register_last_call_arguments" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH_AT__should_succeed_with_RAW" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH_AT__should_succeed_with_STRING" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH__should_succeed" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH__should_succeed_with_malloc" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED__should_succeed_with_function_without_arguments" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH__should_succeed_if_matching_call_is_present_once" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters" time="0.0">
+		<failure>
+Test failed at line 225 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure" time="0.0">
+		<failure>
+Test failed at line 236 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
+		</failure>
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure" time="0.0">
+		<failure>
+Test failed at line 241 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
+		</failure>
+	</testcase>
+</testsuite>
+</testsuites>

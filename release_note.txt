@@ -1,0 +1,60 @@
+0.5.1
+-----
+
+0.5.0
+-----
+
+Removed
+* removed macro AUM_MOCK_REGISTER: it is not necessary to manually register mocks anymore.
+
+Added
+* postinst calls ldconfig.
+* a source packages (tar format), in addition to the debian package, is provided to support other distributions.
+* assert AUM_ASSERT_MEMORY_EQUAL allows to compare N characters of two buffers (using memcmp).
+* a test which is defined but not added into a suite will not compile anymore.
+* macro AUM_MOCK_CREATE was modified so that the compiler raises an error if the mock does not have the same number of parameters as the real function.
+* AUM_MOCK_CREATE can now accept functions with up to 10 arguments.
+* method aum_mock_get_parameter_at fails in case the mock was never called.
+* method aum_runner_register_suite now returns a bool to signal success or failure.
+* more details about known limitations in the documentation.
+
+Fixed
+* memory leaks when compiling with -fprofile-arcs and mocking fwrite or fclose.
+
+0.4.0
+-----
+
+* Removed assertion AUM_ASSERT_NOT_EQUAL. Negative assertion are not very constraigning. They should be avoided.
+* AUM_ASSERT_EQUAL and AUM_ASSERT_WAS_CALLED_WITH_AT accept an additional message to show some context when the assertion fails.
+* Additional parameters can be passed to AUM_FAIL in order to show the value of variables.
+* AUM_ASSERT_STRING_EQUAL prints the actual and expected value when in fails.
+* AUM_ASSERT_PTR_NULL prints the pointer value when it fails.
+* AUM_ASSERT_PTR_EQUAL prints the actual and expected pointer value when it fails.
+* AUM_ASSERT_CALL_COUNT_EQUAL prints the actual number of times the function was calls when it fails.
+* Added macro AUM_TEST_IGNORE to ignore some tests.
+* Removed count of assert which fails in output, since the execution of the test stops at the first failure.
+* Removed statistics about asserts in report. This level of detail is unnecessary.
+
+0.3.0
+-----
+* aum_mock_will_return_at now starts to count calls from the point where it is applied (rather than since the last reset)
+* aum_runner_execute_tests now returns 3 values: AUM_SUCCESS when everything went fine, AUM_FAILURE if at least one test failed and AUM_ERROR in case of an error in the runner itself
+* simplified macro AUM_TEST_SUITE so that we don't need to specify each test description
+* macro AUM_TEST_SUITE does not expect a suite name anymore
+* macro AUM_TEST_SUITE now declares a global variable (rather than a function)
+* added function aum_runner_print_report that prints an xml report
+* added function aum_runner_execute_single_test to run only one test
+* runner API modifications: injected runner in all methods, added function aum_runner_destroy, remove string parameter from aum_runner_execute_tests
+* Fix: aum_mock_will_return was applied only once
+
+0.2.0
+-----
+* Provide one macro to define a mock, regardless of the function signature
+* Removed need to provide the number of arguments to AUM_MOCK_REGISTER
+* Documentation improvements
+* Fix: AUM_ASSERT_WAS_CALLED_WITH is true as soon as at least one call has the expected parameters
+* Fix: Missing dependence to libcunit1 in deb package
+
+0.1.0
+-----
+* First release

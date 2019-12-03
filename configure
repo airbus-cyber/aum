@@ -1,0 +1,85 @@
+#!/bin/bash
+#    AUM: Airbus Unit tests with Mocks for C. AUM is a unit testing framework for C that allows the easy definition and request of mocks.
+#    Copyright (C) 2019  Airbus Defence and Space
+#
+#    You should have received a copy of the AUTHORS.md file which lists all contributors.
+#
+#    This library is free software; you can redistribute it and/or
+#    modify it under the terms of the GNU Lesser General Public
+#    License as published by the Free Software Foundation; either
+#    version 2.1 of the License, or (at your option) any later version.
+#
+#    This library is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#    Lesser General Public License for more details.
+#
+#    You should have received a copy of the GNU Lesser General Public
+#    License along with this library; if not, write to the Free Software
+#    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+
+configArguments=`getopt -o l:p:b:n:s:c:o: --long libdir:,prefix:,bindir:,includedir:,sdkdir:,sysconfdir:,os: -n 'configure' -- "$@"`
+eval set -- "$configArguments"
+
+while true; do
+    case "$1" in
+	-l|--libdir)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_LIBDIR=$2 ; shift 2 ;;
+	    esac ;;
+	-p|--prefix)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_PREFIX=$2 ; shift 2 ;;
+	    esac ;;
+	-b|--bindir)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_BINDIR=$2 ; shift 2 ;;
+	    esac ;;
+	-n|--includedir)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_INCLUDEDIR=$2 ; shift 2 ;;
+	    esac ;;
+	-s|--sdkdir)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_SDKDIR=$2 ; shift 2 ;;
+	    esac ;;
+	-c|--sysconfdir)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_SYSCONFDIR=$2 ; shift 2 ;;
+	    esac ;;
+	-o|--os)
+	    case "$2" in
+		"") shift 2 ;;
+		*) CONFIG_OS=$2 ; shift 2 ;;
+	    esac ;;
+	--) shift ; break ;;
+	*) echo "Unknown option $1" ; exit 1 ;;
+    esac
+done
+
+[ -z ${CONFIG_PREFIX} ] && CONFIG_PREFIX=/usr/local
+[ -z ${CONFIG_LIBDIR} ] && CONFIG_LIBDIR=${CONFIG_PREFIX}/lib
+[ -z ${CONFIG_BINDIR} ] && CONFIG_BINDIR=${CONFIG_PREFIX}/bin
+[ -z ${CONFIG_INCLUDEDIR} ] && CONFIG_INCLUDEDIR=${CONFIG_PREFIX}/include
+[ -z ${CONFIG_SDKDIR} ] && CONFIG_SDKDIR=${CONFIG_PREFIX}/share/
+[ -z ${CONFIG_SYSCONFDIR} ] && CONFIG_SYSCONFDIR=${CONFIG_PREFIX}/etc
+[ -z ${CONFIG_OS} ] && CONFIG_OS=
+
+cat <<EOF >Makefile.defs
+CONFIG_PREFIX=${CONFIG_PREFIX}
+CONFIG_LIBDIR=${CONFIG_LIBDIR}
+CONFIG_BINDIR=${CONFIG_BINDIR}
+CONFIG_INCLUDEDIR=${CONFIG_INCLUDEDIR}
+CONFIG_I18NDIR=${CONFIG_I18NDIR}
+CONFIG_SDKDIR=${CONFIG_SDKDIR}
+CONFIG_SYSCONFDIR=${CONFIG_SYSCONFDIR}
+CONFIG_OS=${CONFIG_OS}
+EOF
+
