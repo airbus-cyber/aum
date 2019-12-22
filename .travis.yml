@@ -1,1 +1,6 @@
+dist: bionic
+addons:
+    apt:
+        packages:
+            - libcunit1-dev
 language: c
