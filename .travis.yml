@@ -3,4 +3,5 @@ addons:
     apt:
         packages:
             - libcunit1-dev
+            - valgrind
 language: c
