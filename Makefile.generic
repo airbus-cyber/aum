@@ -129,3 +129,5 @@ $(RESULTS_API_DIR):
 help::
 	$(info dev_doc       Génération de la documentation de l'API publique dans '$(RESULTS_API_DIR)')
 
+test: runtestc
+
