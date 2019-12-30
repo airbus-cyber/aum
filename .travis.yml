@@ -11,6 +11,5 @@ deploy:
         secure: NuqOztqFJm0o5i6qpPk0kBZePecDDwq+S4rO9gnHE0Z2765+nekUUdUuzGfF4S/Hv1TlClueAp161TnDlVcMEbdraKm50c8OgyV1mBNs+Vu8FIrktY8rGAWjnbGJxJ7TY0ZVW4yH21uqsZ9+DshkabsNVb+5A1xfsux71/DTZDfq29shY75ORiVAz9mwGZeCSWohtJmUOALh6CtkVwlV6v4mo6yeUtexbkH7hx9uzhhLNRPatHk2BPjXdBgC1ffiQWWPZbud1cBhAf/L0rjAxIqB3LuoZJVWW+rryryoV2Gu2Zyad21Agm+rlMwVpRGRzeJQo6BiMqF5n7NOIx5vEQLeL0CMDjS/u0KJ16GXdb8/vSjXD50w8vPux2TkNkNEjKgDoTMGty4Xtjvi+YbIYpldc9urikNtG+AHfd9DgF+PZi9toCWyJH2I6lim5QOd03FsSPAQUFcfCHasEpxOIjq1fAX4op+T8vHl9nZQ0mg3v1Dzl1aQ2YhxPErbyhMaKTMhMOAy4wyYgice7m7PMjAeZMLUrEMvh1tczouMkxBUKDblPyVZCOKPhy9qvNn4STKCL14HWAMretLoTEsxmCmbw2wYD9WRi1hXAE4FyCiKGe+pT/kfnA4XyNmvd18VV9rmSMxrEqo5L1CujAxihQGcRlccOhrminFXJdiUZfM=
     file: results/artifacts/aum.tar
     on:
-        branch: issue5
-        draft: true
+        tags: true
         repo: airbus-cyber/aum
