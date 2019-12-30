@@ -23,4 +23,5 @@
 all: build source_tar
 
 help::
-	$(info all            Compiles and packages everything. Default target.)
+	$(info Makefile help - All available targets: )
+	$(info all            Compiles and packages everything. This is the default target.)
