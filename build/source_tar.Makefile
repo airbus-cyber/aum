@@ -30,11 +30,11 @@ ifndef RESULTS_ARTIFACTS_DIR
   $(error "Variable RESULTS_ARTIFACTS_DIR should be defined")
 endif
 
-ifndef RESULTS_DEBIAN_PKG_NAME
-  $(error "Variable RESULTS_DEBIAN_PKG_NAME should be defined")
+ifndef NAME
+  $(error "Variable NAME should be defined")
 endif
 
-RESULTS_SOURCE_ARCHIVE=$(RESULTS_ARTIFACTS_DIR)$(RESULTS_DEBIAN_PKG_NAME).tar
+RESULTS_SOURCE_ARCHIVE=$(RESULTS_ARTIFACTS_DIR)$(NAME).tar
 
 .PHONY: source_tar
 
@@ -42,7 +42,7 @@ source_tar: $(RESULTS_SOURCE_ARCHIVE)
 
 $(RESULTS_SOURCE_ARCHIVE): | $(RESULTS_ARTIFACTS_DIR)
 	@ echo "Building archive '$(RESULTS_SOURCE_ARCHIVE)'"
-	$(V) $(GIT) archive --format=tar --prefix=$(RESULTS_DEBIAN_PKG_NAME)/ HEAD > $(RESULTS_SOURCE_ARCHIVE)
+	$(V) $(GIT) archive --format=tar --prefix=$(NAME)/ HEAD > $(RESULTS_SOURCE_ARCHIVE)
 
 help::
 	$(info source_tar     Generation of source package in $(RESULTS_ARTIFACTS_DIR))
