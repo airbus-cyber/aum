@@ -32,6 +32,10 @@ include $(MAKEFILE_DEFS_FILE)
 
 SCRIPT_DIR=./build
 
+help::
+	$(info Makefile help - All phony targets: )
+
+include $(SCRIPT_DIR)/all.Makefile
 include $(SCRIPT_DIR)/help.Makefile
 include $(SCRIPT_DIR)/verbose.Makefile
 
@@ -87,7 +91,6 @@ CLEAN_VALGRIND_REPORT=$(SCRIPT_DIR)/clean_valgrind_report.sh
 
 PKG_DEPENDS_LIBRARY_PATH=$(shell $(PKGCONFIG) --variable=libdir $(DEPENDS) 2> /dev/null | tr ' ' ':')
 
-
 include $(SCRIPT_DIR)/build.Makefile
 
 include $(SCRIPT_DIR)/testu.Makefile
@@ -127,7 +130,7 @@ $(RESULTS_API_DIR):
 	@ $(MKDIR) $@
 
 help::
-	$(info dev_doc       Génération de la documentation de l'API publique dans '$(RESULTS_API_DIR)')
+	$(info dev_doc       Generates public API documentation in '$(RESULTS_API_DIR)')
 
 test: runtestu runtestc
 

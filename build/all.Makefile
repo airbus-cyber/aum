@@ -18,24 +18,9 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-ifndef VERSION
-  $(error "Variable VERSION should be defined")
-endif
+.PHONY: all
 
-################################################################################
-# Help                                                                         #
-################################################################################
+all: build source_tar
 
 help::
-	$(info help           This help)
-	$(info help_version   Shows the current version)
-	$(info help_variables Shows the list of supported variables)
-
-.PHONY: help help_version help_variables
-
-help_version:
-	@ echo $(VERSION)
-
-help_variables::
-	$(info Supported command line variables: )
-
+	$(info all            Compiles and packages everything. Default target.)
