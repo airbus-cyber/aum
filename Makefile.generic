@@ -32,9 +32,6 @@ include $(MAKEFILE_DEFS_FILE)
 
 SCRIPT_DIR=./build
 
-help::
-	$(info Makefile help - All phony targets: )
-
 include $(SCRIPT_DIR)/all.Makefile
 include $(SCRIPT_DIR)/help.Makefile
 include $(SCRIPT_DIR)/verbose.Makefile
