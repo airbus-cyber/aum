@@ -61,7 +61,7 @@ debian: $(RESULTS_PKG_CONTENT_DIR) | $(RESULTS_ARTIFACTS_DIR)
 	$(V) cp $(RESULTS_DEBIAN_PKG) $(RESULTS_ARTIFACTS_DIR)
 
 help::
-	$(info debian         Generation of Debian package in $(RESULTS_ARTIFACTS_DIR))
+	$(info debian         Generates debian package in $(RESULTS_ARTIFACTS_DIR))
 
 help_variables::
 	$(info DEB_DEPENDS       Dependence for debian packaging. Will be present in control file)
