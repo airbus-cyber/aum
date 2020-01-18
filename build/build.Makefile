@@ -69,5 +69,5 @@ $(RESULTS_BIN_DIR) $(RESULTS_OBJ_DIR):
 	@ $(MKDIR) $@
 
 help::
-	$(info build          Construction du binaire du paquet '$(RESULTS_BINARY)')
+	$(info build          Builds binary '$(RESULTS_BINARY)')
 
