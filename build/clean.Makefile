@@ -42,6 +42,6 @@ distclean: clean
 	$(V) $(RM) $(MAKEFILE_DEFS_FILE)
 
 help::
-	$(info clean          Nettoyage des objets de compilation)
-	$(info distclean      Nettoyage pour distribution)
+	$(info clean          Deletes all files that are created by building)
+	$(info distclean      Deletes all files that are created by configuring or building)
 
