@@ -51,5 +51,5 @@ $(RESULTS_VERSION_FILE): | $(RESULTS_ARTIFACTS_DIR)
 version: $(RESULTS_VERSION_FILE)
 
 help::
-	$(info version        Creation of version file)
+	$(info version        Creates version file)
 
