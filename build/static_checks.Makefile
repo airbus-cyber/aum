@@ -75,5 +75,5 @@ customcheck:
 	$(V) $(SCRIPT_DIR)/customcheck.sh
 
 help::
-	$(info customcheck      Runs custom checks)
+	$(info customcheck    Runs custom checks)
 
