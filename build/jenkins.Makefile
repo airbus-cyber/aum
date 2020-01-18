@@ -21,7 +21,7 @@
 # use ci rather than jenkins?
 
 # TODO try to merge rungcov and valgrindu
-jenkins: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc debian source_tar version
+jenkins: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc debian version
 
 .PHONY: jenkins
 
