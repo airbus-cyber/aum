@@ -126,7 +126,7 @@ $(RESULTS_API_DIR):
 	@ $(MKDIR) $@
 
 help::
-	$(info dev_doc       Generates public API documentation in '$(RESULTS_API_DIR)')
+	$(info dev_doc        Generates public API documentation in '$(RESULTS_API_DIR)')
 
 test: runtestu runtestc
 
