@@ -125,8 +125,8 @@ valgrindc: $(OUTPUT_TESTC_BINARY)
 .PHONY: runtestc valgrindc
 
 help::
-	$(info runtestc       Exécution des tests composants)
-	$(info valgrindc      Exécution des tests composants avec Valgrind - Rapport Valgrind : '$(VALGRIND_TESTC_REPORT_PATH)')
+	$(info runtestc       Runs component tests)
+	$(info valgrindc      Runs component tests with Valgrind - Valgrind report: '$(VALGRIND_TESTC_REPORT_PATH)')
 
 help_variables::
 	$(info TESTC_LDFLAGS     Linker flags for component tests compilation)
