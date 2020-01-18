@@ -26,5 +26,5 @@ jenkins: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc debian sourc
 .PHONY: jenkins
 
 help::
-	$(info jenkins        Règle spécifique au job jenkins)
+	$(info jenkins        Target to run continuous integration in Jenkins)
 
