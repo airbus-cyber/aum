@@ -140,9 +140,9 @@ rungcov: $(RESULTS_TESTU_BINARY) | $(RESULTS_REPORT_DIR)
 	$(V) $(GCOV) --root=. --output=$(GCOV_REPORT_PATH)
 
 help::
-	$(info runtestu       Runs unit tests suite - CUnit report: '$(RESULTS_REPORT_DIR)')
-	$(info valgrindu      Runs unit tests suite with Valgrind - Valgrind report: '$(VALGRIND_TESTU_REPORT_PATH)')
-	$(info rungcov        Runs unit tests suite with gcov - GCov report: '$(GCOV_REPORT_PATH)')
+	$(info runtestu       Runs unit tests - CUnit report: '$(RESULTS_REPORT_DIR)')
+	$(info valgrindu      Runs unit tests with Valgrind - Valgrind report: '$(VALGRIND_TESTU_REPORT_PATH)')
+	$(info rungcov        Runs unit tests with gcov - GCov report: '$(GCOV_REPORT_PATH)')
 
 help_variables::
 	$(info TESTU_DEPENDS     Additional dependences for tests)
