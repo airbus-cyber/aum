@@ -44,5 +44,5 @@ $(RESULTS_DOC_DIR):
 	$(V) $(MKDIR) $(RESULTS_DOC_DIR)
 
 help::
-	$(info doc            Génération de la documentation Doxygen dans '$(RESULTS_DOC_DIR)')
+	$(info doc            Generates Doxygen documentation in '$(RESULTS_DOC_DIR)')
 
