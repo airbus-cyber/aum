@@ -100,7 +100,6 @@ include $(SCRIPT_DIR)/doc.Makefile
 
 include $(SCRIPT_DIR)/package.Makefile
 include $(SCRIPT_DIR)/debian.Makefile
-include $(SCRIPT_DIR)/source_tar.Makefile
 
 include $(SCRIPT_DIR)/jenkins.Makefile
 

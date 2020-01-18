@@ -20,7 +20,7 @@
 
 .PHONY: all
 
-all: build source_tar
+all: build
 
 help::
 	$(info Makefile help - All available targets: )
