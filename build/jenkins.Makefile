@@ -26,5 +26,5 @@ jenkins: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc debian versi
 .PHONY: jenkins
 
 help::
-	$(info jenkins        Target to run continuous integration in Jenkins)
+	$(info jenkins        Calls all targets necessary for continuous integration in Jenkins)
 
