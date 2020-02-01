@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- default target in Makefile was failing in the absence of the .git directory
 - target `debian` was incorrectly documented in Makefile
 
 ## [0.6.0](https://github.com/airbus-cyber/aum/releases/tag/0.6.0)
