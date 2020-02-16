@@ -6,6 +6,7 @@ addons:
     - libcunit1-dev
     - valgrind
     - doxygen
+    - graphviz
 language: c
 deploy:
     provider: releases
