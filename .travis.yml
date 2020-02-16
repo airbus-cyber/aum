@@ -5,6 +5,7 @@ addons:
     packages:
     - libcunit1-dev
     - valgrind
+    - doxygen
 language: c
 deploy:
     provider: releases
