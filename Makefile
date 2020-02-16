@@ -34,7 +34,7 @@ REPOSITORY=aum
 # Description du paquet
 DESCRIPTION="AUM Testing Framework"
 # Version du paquet
-VERSION=0.6.1
+VERSION=0.7.0
 # Dépendances du paquet - Ces dépendances doivent fournir un fichier pkgconfig
 DEPENDS=cunit
 # Dépendances Debian du paquet - Ces dépendances seront renseignées dans le fichier control du paquet Debian
