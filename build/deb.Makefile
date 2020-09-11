@@ -48,9 +48,9 @@ RESULTS_DEBIAN_DIR=$(RESULTS_DEBIAN_BUILD_DIR)/$(RESULTS_DEBIAN_PKG_NAME)
 RESULTS_DEBIAN_PKG=$(RESULTS_DEBIAN_BUILD_DIR)/$(RESULTS_DEBIAN_PKG_NAME).deb
 RESULTS_DEBIAN_METADATA_DIR=$(RESULTS_DEBIAN_DIR)/DEBIAN/
 
-.PHONY: debian
+.PHONY: deb
 
-debian: $(RESULTS_PKG_CONTENT_DIR) | $(RESULTS_ARTIFACTS_DIR)
+deb: $(RESULTS_PKG_CONTENT_DIR) | $(RESULTS_ARTIFACTS_DIR)
 	$(V) $(MKDIR) $(RESULTS_DEBIAN_DIR)
 	$(V) $(MKDIR) $(RESULTS_DEBIAN_METADATA_DIR)
 	$(V) $(SCRIPT_DIR)/create_md5sums.sh $(RESULTS_PKG_CONTENT_DIR) > $(RESULTS_DEBIAN_METADATA_DIR)/md5sums
@@ -61,7 +61,7 @@ debian: $(RESULTS_PKG_CONTENT_DIR) | $(RESULTS_ARTIFACTS_DIR)
 	$(V) cp $(RESULTS_DEBIAN_PKG) $(RESULTS_ARTIFACTS_DIR)
 
 help::
-	$(info debian         Generates debian package in $(RESULTS_ARTIFACTS_DIR))
+	$(info deb         Generates debian package in $(RESULTS_ARTIFACTS_DIR))
 
 help_variables::
 	$(info DEB_DEPENDS       Dependence for debian packaging. Will be present in control file)
