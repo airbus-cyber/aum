@@ -20,7 +20,7 @@
 
 .PHONY: all
 
-all: build doc deb
+all: build doc
 
 help::
 	$(info Makefile help - All available targets: )
