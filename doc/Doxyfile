@@ -1789,18 +1789,6 @@ GENERATE_XML           = NO
 
 XML_OUTPUT             = xml
 
-# The XML_SCHEMA tag can be used to specify a XML schema, which can be used by a
-# validating XML parser to check the syntax of the XML files.
-# This tag requires that the tag GENERATE_XML is set to YES.
-
-XML_SCHEMA             =
-
-# The XML_DTD tag can be used to specify a XML DTD, which can be used by a
-# validating XML parser to check the syntax of the XML files.
-# This tag requires that the tag GENERATE_XML is set to YES.
-
-XML_DTD                =
-
 # If the XML_PROGRAMLISTING tag is set to YES doxygen will dump the program
 # listings (including syntax highlighting and cross-referencing information) to
 # the XML output. Note that enabling this will significantly increase the size
@@ -2028,13 +2016,6 @@ CLASS_DIAGRAMS         = YES
 # default search path.
 
 MSCGEN_PATH            =
-
-# You can include diagrams made with dia in doxygen documentation. Doxygen will
-# then run dia to produce the diagram and insert it in the documentation. The
-# DIA_PATH tag allows you to specify the directory where the dia binary resides.
-# If left empty dia is assumed to be found in the default search path.
-
-DIA_PATH               = /usr/bin/dia
 
 # If set to YES, the inheritance and collaboration graphs will hide inheritance
 # and usage relations if the target is undocumented or is not a class.
