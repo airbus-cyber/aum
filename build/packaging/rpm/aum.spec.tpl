@@ -16,10 +16,12 @@ Requires:   CUnit
 %install
 mkdir -p %{buildroot}/usr/local/
 cp -r ./include %{buildroot}/usr/local/
-cp -r ./libaum.so %{_libdir}
+mkdir -p %{buildroot}/%{_libdir}
+cp -r ./libaum.so %{buildroot}/%{_libdir}
 
 %files
 /usr/local/include
+%{_libdir}/libaum.so
 
 %changelog
 
