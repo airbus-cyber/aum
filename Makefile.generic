@@ -115,7 +115,7 @@ include $(SCRIPT_DIR)/jenkins.Makefile
 RESULTS_API_DIR=$(RESULTS_DIR)/api
 RESULTS_API_DOC=$(RESULTS_API_DIR)/html
 
-.PHONY: dev_doc
+.PHONY: test dev_doc
 
 dev_doc: $(RESULTS_API_DOC)
 
