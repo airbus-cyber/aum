@@ -175,13 +175,13 @@ static void _cunit_print_results(int ignored_tests_count)
         printf("Oooopsss... No run summary found, problem somewhere...\n");
         return;
     }
-    printf("Run summary:\tType\tRan\tIgnored\tPassed\tFailed\n");
-    printf("            \tsuites\t%d\t0\t%d\t%d\n",
-           run_summary->nSuitesRun + run_summary->nSuitesFailed,
-           run_summary->nSuitesRun, run_summary->nSuitesFailed);
-    printf("            \ttests\t%u\t%u\t%u\t%u\n",
-           run_summary->nTestsRun, ignored_tests_count,
-           run_summary->nTestsRun - run_summary->nTestsFailed, run_summary->nTestsFailed);
+    if (run_summary->nSuitesRun != 0) {
+        printf("Test suites: %d\n", run_summary->nSuitesRun);
+    }
+    printf("Tests failed/executed: %d/%d\n", run_summary->nTestsFailed, run_summary->nTestsRun);
+    if (ignored_tests_count != 0) {
+        printf("Tests skipped: %d\n", ignored_tests_count);
+    }
 }
 
 bool test_framework_print_xml_report(file_stream_t *output_stream, test_suite_list_t *suites) 

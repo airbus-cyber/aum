@@ -60,9 +60,9 @@ Suite: test_suite_with_mock...
 		tests/component/src/test_suite_with_mock.c:263 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
 
 
-Run summary:	Type	Ran	Ignored	Passed	Failed
-            	suites	2	0	2	0
-            	tests	37	1	23	14
+Test suites: 2
+Tests failed/executed: 14/37
+Tests skipped: 1
 
 
 Execution of a single test
@@ -70,6 +70,4 @@ Suite: test_suite_simple...
 	Test: AUM_ASSERT_PTR_NULL__should_succeed_with_NULL_pointer... SUCCESS
 
 
-Run summary:	Type	Ran	Ignored	Passed	Failed
-            	suites	0	0	0	0
-            	tests	1	0	1	0
+Tests failed/executed: 0/1
