@@ -58,8 +58,8 @@ bool test_framework_register_suite(aum_test_suite_t *suite)
         if (current_test->ignored) {
             continue;
         }
-		tests[j].pName = current_test->name;
-		tests[j].pTestFunc = current_test->test_function;
+        tests[j].pName = current_test->name;
+        tests[j].pTestFunc = current_test->test_function;
         j++;
     }
     CU_SuiteInfo suite_registry[] = {CU_SUITE_INFO_NULL, CU_SUITE_INFO_NULL};
