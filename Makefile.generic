@@ -98,7 +98,7 @@ include $(SCRIPT_DIR)/clean.Makefile
 
 include $(SCRIPT_DIR)/doc.Makefile
 
-include $(SCRIPT_DIR)/package.Makefile
+include $(SCRIPT_DIR)/install.Makefile
 include $(SCRIPT_DIR)/deb.Makefile
 include $(SCRIPT_DIR)/rpm.Makefile
 

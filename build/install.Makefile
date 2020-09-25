@@ -53,16 +53,21 @@ $(RESULTS_PKG_PKGCONFIG_DIR):
 
 RESULTS_PKG_CONTENT_DIR=$(RESULTS_PKG_DIR)/content
 
-# TODO Maybe should have rule package to build this package content?
-# TODO should be the documentation from the doc.Makefile that is included here, the other documentation is local (exchange the names)
-$(RESULTS_PKG_CONTENT_DIR): $(RESULTS_PKG_PKGCONFIG) $(RESULTS_DOC) $(RESULTS_BINARY) 
-	$(V) $(MKDIR) $(RESULTS_PKG_CONTENT_DIR)
-	$(V) $(MKDIR) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_INCLUDEDIR)
-	$(V) cp -r $(PUBLIC_INCLUDE_DIR)/* $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_INCLUDEDIR)
-	$(V) $(MKDIR) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_LIBDIR)
-	$(V) cp $(RESULTS_BINARY) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_LIBDIR)
-	$(V) $(MKDIR) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_LIBDIR)/pkgconfig
-	$(V) cp $(RESULTS_PKG_PKGCONFIG) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_LIBDIR)/pkgconfig
-	$(V) $(MKDIR) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_PREFIX)/share/doc/$(NAME)
-	$(V) cp -r $(RESULTS_DOC) $(RESULTS_PKG_CONTENT_DIR)/$(CONFIG_PREFIX)/share/doc/$(NAME)
+.PHONY: install
+
+$(RESULTS_PKG_CONTENT_DIR): DESTDIR=$(RESULTS_PKG_CONTENT_DIR)
+$(RESULTS_PKG_CONTENT_DIR): install
+
+install: $(RESULTS_PKG_PKGCONFIG) $(RESULTS_DOC) $(RESULTS_BINARY)
+	$(V) $(MKDIR) $(DESTDIR)/$(CONFIG_INCLUDEDIR)
+	$(V) cp -r $(PUBLIC_INCLUDE_DIR)/* $(DESTDIR)/$(CONFIG_INCLUDEDIR)
+	$(V) $(MKDIR) $(DESTDIR)/$(CONFIG_LIBDIR)
+	$(V) cp $(RESULTS_BINARY) $(DESTDIR)/$(CONFIG_LIBDIR)
+	$(V) $(MKDIR) $(DESTDIR)/$(CONFIG_LIBDIR)/pkgconfig
+	$(V) cp $(RESULTS_PKG_PKGCONFIG) $(DESTDIR)/$(CONFIG_LIBDIR)/pkgconfig
+	$(V) $(MKDIR) $(DESTDIR)/$(CONFIG_PREFIX)/share/doc/$(NAME)
+	$(V) cp -r $(RESULTS_DOC) $(DESTDIR)/$(CONFIG_PREFIX)/share/doc/$(NAME)
+
+help::
+	$(info install        Installs everything relative to DESTDIR)
 
