@@ -26,6 +26,7 @@ sudo yum install aum-$VERSION-$RELEASE.x86_64.rpm
 ./configure
 make
 make test
+sudo make install
 ```
 
 ## Usage
