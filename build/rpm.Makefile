@@ -56,6 +56,6 @@ rpm: $(RESULTS_PKG_CONTENT_DIR) | $(RESULTS_ARTIFACTS_DIR)
 	$(V) cp /root/rpmbuild/RPMS/x86_64/aum-$(VERSION)-1.x86_64.rpm $(RESULTS_ARTIFACTS_DIR)
 
 help::
-	$(info rpm         Generates rpm package in $(RESULTS_ARTIFACTS_DIR))
+	$(info rpm            Generates rpm package in $(RESULTS_ARTIFACTS_DIR))
 
 
