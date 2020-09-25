@@ -27,6 +27,7 @@ sudo yum install aum-$VERSION-$RELEASE.x86_64.rpm
 make
 make test
 sudo make install
+ldconfig
 ```
 
 ## Usage
