@@ -2,7 +2,6 @@
 	AUM - All Ur Mocks are belongs to us - Version {VERSION}
 	Copyright Airbus Defence and Space CyberSecurity
 
-Execution of all tests
 Suite: test_suite_simple...
 	Test: AUM_FAIL__should_always_fail... FAILED
 		tests/component/src/test_suite_simple.c:31 - AUM_FAIL - Echec volontaire du test000
@@ -63,11 +62,3 @@ Suite: test_suite_with_mock...
 Test suites: 2
 Tests failed/executed: 14/37
 Tests skipped: 1
-
-
-Execution of a single test
-Suite: test_suite_simple...
-	Test: AUM_ASSERT_PTR_NULL__should_succeed_with_NULL_pointer... SUCCESS
-
-
-Tests failed/executed: 0/1

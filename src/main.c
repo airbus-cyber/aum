@@ -64,14 +64,10 @@ static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_co
         aum_runner_register_suite(runner, test_suites[i]);
     }
 
-    printf("Execution of all tests\n");
     aum_runner_result_t result = aum_runner_execute_tests(runner);
     if (arguments->xml_output_path != NULL) {
         aum_runner_print_xml_report(runner, arguments->xml_output_path);
     }
-
-    printf("\n\nExecution of a single test\n");
-    aum_runner_execute_single_test(runner, "test_suite_simple", "AUM_ASSERT_PTR_NULL__should_succeed_with_NULL_pointer");
 
     aum_runner_destroy(runner);
     if (result == AUM_ERROR) {
