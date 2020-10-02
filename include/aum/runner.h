@@ -39,28 +39,27 @@ typedef enum {
 typedef struct aum_runner_s aum_runner_t;
 
 /*!
- * \brief Initialisation de l'application de test
+ * \brief Runner intialization
  *
- * \param[in]           output_path       Chemin pour génération du rapport
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
 aum_runner_t *aum_runner_create(void);
 
 /*!
- * \brief Enregistrement d'une suites de tests
+ * \brief Register test suites
  *
- * \return              true     Succès
- * \return              false    Echec de l'enregistrement de la suite
+ * \return              true     Success
+ * \return              false    Failure
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
 bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
 
 /*!
- * \brief Exécution des suites de tests
+ * \brief Executes all tests
  *
- * \return              AUM_SUCCESS     Tous les tests en succès
- * \return              AUM_FAILURE     Au moins un test a échoué
- * \return              AUM_ERROR       Erreur fatale lors de l'exécution des tests
+ * \return              AUM_SUCCESS     All tests successful
+ * \return              AUM_FAILURE     At least one test failed
+ * \return              AUM_ERROR       Fatal error during the tests execution
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
 aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this);
