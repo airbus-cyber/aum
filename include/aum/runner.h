@@ -30,12 +30,20 @@
 #include <stdbool.h>
 #include <aum/test_suite.h>
 
+/*!
+ *
+ * \deprecated Use macro AUM_MAIN_RUN instead
+ */
 typedef enum {
   AUM_SUCCESS,
   AUM_FAILURE,
   AUM_ERROR
 } aum_runner_result_t;
 
+/*!
+ *
+ * \deprecated Use macro AUM_MAIN_RUN instead
+ */
 typedef struct aum_runner_s aum_runner_t;
 
 /*!
