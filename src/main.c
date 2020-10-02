@@ -24,8 +24,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include <aum/runner.h>
+#include <runner.h>
+
 #include <aum/main.h>
+
 
 typedef struct {
   char *xml_output_path;
@@ -55,27 +57,28 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) 
 }
 
 static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, _runner_arguments_t *arguments) {
-    aum_runner_t *runner = aum_runner_create();
+    aum_runner_t *runner = runner_create();
     if (runner == NULL) {
         return false;
     }
 
     for (int i = 0; i < test_suites_count; i++) {
-        aum_runner_register_suite(runner, test_suites[i]);
+        runner_register_suite(runner, test_suites[i]);
     }
 
-    aum_runner_result_t result = aum_runner_execute_tests(runner);
+    aum_runner_result_t result = runner_execute_tests(runner);
     if (arguments->xml_output_path != NULL) {
-        aum_runner_print_xml_report(runner, arguments->xml_output_path);
+        runner_print_xml_report(runner, arguments->xml_output_path);
     }
 
-    aum_runner_destroy(runner);
+    runner_destroy(runner);
     if (result == AUM_ERROR) {
         return false;
     }
     return true;
 
 }
+
 
 int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], int test_suites_count) {
     _runner_arguments_t *arguments = _main_parse_arguments(command_line_arguments, command_line_arguments_count);
