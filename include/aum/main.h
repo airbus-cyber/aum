@@ -19,14 +19,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
 /*!
  * \file
- * \brief Point d'entrée de la suite de tests unitaires
+ * \brief Interface to create the main function with the test runner
  */
-#include <aum.h>
-/* PKG Test Includes */
-#include <test/test_suites.h>
 
-AUM_MAIN_RUN(&test_suite_simple, &test_suite_with_mock);
+#pragma once
+
+#include <aum/test_suite.h>
+
+int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], int test_suites_count);
+
+/*! \def AUM_MAIN_RUN(suites...)
+ *
+ * Creates a main function to run the suites
+ */
+#define AUM_MAIN_RUN(__suites...)                                                         \
+    int main(int arguments_count, char *arguments[])                                      \
+    {                                                                                     \
+        aum_test_suite_t *test_suites[] = { __suites };                                   \
+        int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);           \
+                                                                                          \
+        return aum_main_run(arguments, arguments_count, test_suites, test_suites_count);  \
+    }
 
