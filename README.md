@@ -44,19 +44,9 @@ AUM_TEST(AUM_FAIL__should_fail)
   AUM_FAIL("Voluntary test failure\n");
 }
 
-AUM_TEST_SUITE(simple_suite, &AUM_FAIL__should_fail);
+AUM_TEST_SUITE(first_suite, &AUM_FAIL__should_fail);
 
-int main(int argc, char **args) {
-    aum_runner_t *runner = aum_runner_create();
-    if (runner == NULL) {
-        return AUM_ERROR;
-    }
-    aum_runner_register_suite(runner, &simple_suite);
-
-    aum_runner_result_t result = aum_runner_execute_tests(runner);
-    aum_runner_destroy(runner);
-    return result;
-}
+AUM_MAIN_RUN(&first_suite);
 ```
 
 Then compile, link and execute:
@@ -90,17 +80,7 @@ AUM_TEST(aum_mock_will_return__should_set_return_code)
 
 AUM_TEST_SUITE(suite_with_mock, &aum_mock_will_return__should_set_return_code);
 
-int main(int argc, char **args) {
-    aum_runner_t *runner = aum_runner_create();
-    if (runner == NULL) {
-        return AUM_ERROR;
-    }
-    aum_runner_register_suite(runner, &suite_with_mock);
-
-    aum_runner_result_t result = aum_runner_execute_tests(runner);
-    aum_runner_destroy(runner);
-    return result;
-}
+AUM_MAIN_RUN(&suite_with_mock);
 ```
 
 Next, compile, link and execute the test suite as follows:
@@ -145,23 +125,10 @@ Header aum.h includes everything necessary to use mocks. It is split into:
 
 You may want to execute your test suite during continuous integration. To present the result, Jenkins will then need to input the test report in the xunit format.
 
-In order to generate this report, call function `aum_runner_print_xml_report` with the path of the report as argument. Continuing on the first example, function `main` becomes:
-```c
-int main(int argc, char **args) {
-    aum_runner_t *runner = aum_runner_create();
-    if (runner == NULL) {
-        return AUM_ERROR;
-    }
-    aum_runner_register_suite(runner, &simple_suite);
-
-    aum_runner_result_t result = aum_runner_execute_tests(runner);
-    aum_runner_print_xml_report(runner, "./aum_test_results.xml");
-    aum_runner_destroy(runner);
-    return result;
-}
+In order to generate this report, call the compiled test program with option `-o` to choose the path to the report:
+```bash
+$ ./test.out -o aum_test_results.xml
 ```
-
-Running the test suite now creates a file named `aum_test_results.xml` in the correct format.
 
 ## Test suites organization
 
@@ -174,11 +141,7 @@ A mock collection groups mock declarations (macro `AUM_MOCK_CREATE`) for a given
 
 A test suite contains several tests (macro `AUM_TEST`). It exports a function (declared with macro `AUM_TEST_SUITE`) to register them in the test runner.
 
-The test runner performs the following tasks:
-* initialization with `aum_runner_create`,
-* test suites registering with `aum_runner_register_suite`,
-* tests execution with `aum_runner_execute_tests`,
-* optionally, xunit report generation with `aum_runner_print_xml_report`.
+The test runner executes all the test suites registered with macro `AUM_MAIN_RUN`. For the time being, it accepts only one option (`-o`) which turns on xunit report generation.
 
 ## Known limitations
 
