@@ -188,3 +188,9 @@ These limitations result from the technique used to intercept calls to mocked fu
 * AUM does not handle variadic functions at all. So, functions like `printf` with a varying number of arguments can not be mocked. In such cases, there are two strategies. You can either wrap the variadic function or, on the contrary, extract its core implementation into another function with a `va_list` as its last argument. In the latter case, the variadic version can still be kept: it will simply converts its arguments into a `va_list` to then call this new function. For more details, see: http://c-faq.com/varargs/handoff.html.
 * when declaring a mock with macro `AUM_MOCK_CREATE` be extra vigilant that the number and argument types correspond to the mocked function signature. In theory, `AUM_MOCK_CREATE` is written so that the compiler signals an error otherwise. In practice, there may still be cases where you end up with weird errors which pop only during tests run.
 
+## Meanings of AUM
+
+The library name is a reference to an old video game with this phrase: [All your base are belong to us](https://en.wikipedia.org/wiki/All_your_base_are_belong_to_us).
+At the same time, AUM stands for **Airbus c library for Unit tests with Mocks**.
+
+
