@@ -24,6 +24,7 @@
  * \file
  * \brief Point d'entrée de la suite de tests unitaires
  */
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,46 +33,47 @@
 /* PKG Test Includes */
 #include <test/test_suites.h>
 
-typedef struct aum_runner_arguments_s {
+typedef struct {
   char *xml_output_path;
 } aum_runner_arguments_t;
 
-#define AUM_RUNNER_ARGUMENTS_INIT ((aum_runner_arguments_t){NULL})
 
-static void _main_parse_arguments(int argc, char **argv, aum_runner_arguments_t *arguments) {
-  int   option;
-
-  while ((option = getopt(argc, argv, "o:")) != -1) {
-    switch (option) {
-    case 'o':
-      arguments->xml_output_path = optarg;
-      break;
-    default:
-      fprintf(stderr, "Usage: %s [-o xml_output_path]\n", argv[0]);
-      exit(EXIT_FAILURE);
+static aum_runner_arguments_t *_main_parse_arguments(char *arguments[], int count) {
+    aum_runner_arguments_t *result = malloc(sizeof(aum_runner_arguments_t));
+    if (result == NULL) {
+        return NULL;
     }
-  }
+
+    int   option;
+
+    while ((option = getopt(count, arguments, "o:")) != -1) {
+        switch (option) {
+            case 'o':
+                result->xml_output_path = optarg;
+                break;
+            default:
+                fprintf(stderr, "Usage: %s [-o xml_output_path]\n", arguments[0]);
+                exit(EXIT_FAILURE);
+        }
+    }
+
+    return result;
 }
 
-int main(int argc, char **argv)
-{
-    aum_runner_arguments_t arguments = AUM_RUNNER_ARGUMENTS_INIT;
-
-    _main_parse_arguments(argc, argv, &arguments);
-
+static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, aum_runner_arguments_t *arguments) {
     aum_runner_t * runner = aum_runner_create();
     if (runner == NULL) {
-        return EXIT_FAILURE;
+        return false;
     }
 
-    /* Appel aux fonctions d'initialisation des suites de tests */
-    aum_runner_register_suite(runner, &test_suite_simple);
-    aum_runner_register_suite(runner, &test_suite_with_mock);
+    for (int i = 0; i < test_suites_count; i++) {
+        aum_runner_register_suite(runner, test_suites[i]);
+    }
 
     printf("Execution of all tests\n");
     aum_runner_result_t result = aum_runner_execute_tests(runner);
-    if (arguments.xml_output_path != NULL) {
-        aum_runner_print_xml_report(runner, arguments.xml_output_path);
+    if (arguments->xml_output_path != NULL) {
+        aum_runner_print_xml_report(runner, arguments->xml_output_path);
     }
 
     printf("\n\nExecution of a single test\n");
@@ -79,7 +81,36 @@ int main(int argc, char **argv)
 
     aum_runner_destroy(runner);
     if (result == AUM_ERROR) {
+        return false;
+    }
+    return true;
+
+}
+
+static int _main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], int test_suites_count) {
+    aum_runner_arguments_t *arguments = _main_parse_arguments(command_line_arguments, command_line_arguments_count);
+    if (arguments == NULL) {
+        return EXIT_FAILURE;
+    } 
+
+    bool success = _run_test_suites(test_suites, test_suites_count, arguments);
+    free(arguments);
+
+    if (!success) {
         return EXIT_FAILURE;
     }
+
     return EXIT_SUCCESS;
 }
+
+int main(int arguments_count, char *arguments[])
+{
+    aum_test_suite_t *test_suites[] = {
+        &test_suite_simple,
+        &test_suite_with_mock
+    };
+    int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);
+
+    return _main_run(arguments, arguments_count, test_suites, test_suites_count);
+}
+
