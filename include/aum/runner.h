@@ -22,14 +22,13 @@
 
 /*!
  * \file
- * \brief Interface pour implémentation des suites et tests
+ * \deprecated Use macro AUM_MAIN_RUN instead
  */
 
 #pragma once
 
 #include <stdbool.h>
 #include <aum/test_suite.h>
-
 
 typedef enum {
   AUM_SUCCESS,
@@ -39,34 +38,51 @@ typedef enum {
 
 typedef struct aum_runner_s aum_runner_t;
 
-/******************************************************************************
- * Fonctions                                                                  *
- ******************************************************************************/
-
-/*! \brief Initialisation de l'application de test
+/*!
+ * \brief Initialisation de l'application de test
  *
  * \param[in]           output_path       Chemin pour génération du rapport
+ * \deprecated Use macro AUM_MAIN_RUN instead
  */
 aum_runner_t *aum_runner_create(void);
 
-/*! \brief Enregistrement d'une suites de tests
+/*!
+ * \brief Enregistrement d'une suites de tests
  *
  * \return              true     Succès
  * \return              false    Echec de l'enregistrement de la suite
+ * \deprecated Use macro AUM_MAIN_RUN instead
  */
 bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
 
-/*! \brief Exécution des suites de tests
+/*!
+ * \brief Exécution des suites de tests
  *
  * \return              AUM_SUCCESS     Tous les tests en succès
  * \return              AUM_FAILURE     Au moins un test a échoué
  * \return              AUM_ERROR       Erreur fatale lors de l'exécution des tests
+ * \deprecated Use macro AUM_MAIN_RUN instead
  */
 aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this);
 
+/*!
+ * \brief 
+ *
+ * \deprecated Use macro AUM_MAIN_RUN instead
+ */
 aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_runner_t *this, const char *suite_name, const char *test_name);
 
+/*!
+ * \brief 
+ *
+ * \deprecated Use macro AUM_MAIN_RUN instead
+ */
 bool aum_runner_print_xml_report(aum_runner_t *this, const char *path);
 
+/*!
+ * \brief 
+ *
+ * \deprecated Use macro AUM_MAIN_RUN instead
+ */
 void aum_runner_destroy(aum_runner_t *this);
 
