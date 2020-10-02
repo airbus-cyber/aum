@@ -103,14 +103,15 @@ static int _main_run(char *command_line_arguments[], int command_line_arguments_
     return EXIT_SUCCESS;
 }
 
-int main(int arguments_count, char *arguments[])
-{
-    aum_test_suite_t *test_suites[] = {
-        &test_suite_simple,
-        &test_suite_with_mock
-    };
-    int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);
+#define AUM_RUNNER_MAIN(__suites...)                                                      \
+    int main(int arguments_count, char *arguments[])                                      \
+    {                                                                                     \
+        aum_test_suite_t *test_suites[] = { __suites };                                   \
+        int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);           \
+                                                                                          \
+        return _main_run(arguments, arguments_count, test_suites, test_suites_count);     \
+    }
 
-    return _main_run(arguments, arguments_count, test_suites, test_suites_count);
-}
+
+AUM_RUNNER_MAIN(&test_suite_simple, &test_suite_with_mock);
 
