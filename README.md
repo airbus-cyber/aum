@@ -154,6 +154,6 @@ These limitations result from the technique used to intercept calls to mocked fu
 ## Meanings of AUM
 
 The library name is a reference to an old video game with this phrase: [All your base are belong to us](https://en.wikipedia.org/wiki/All_your_base_are_belong_to_us).
-At the same time, AUM stands for **Airbus c library for Unit tests with Mocks**.
+At the same time, AUM stands for **Airbus Unit tests with Mocks for C**.
 
 
