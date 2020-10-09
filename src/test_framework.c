@@ -159,11 +159,6 @@ static void _stdout_after_test_handler(const CU_pTest __attribute__((unused)) te
 {
     if (failure == NULL) {
         printf("SUCCESS\n");
-    } else {
-        printf("FAILED\n");
-        for (CU_pFailureRecord current_failure = failure; current_failure != NULL; current_failure = current_failure->pNext) {
-            printf("\t\t%s:%d - %s\n", current_failure->strFileName, current_failure->uiLineNumber, current_failure->strCondition);
-        }
     }
     tests_common_after_test_handler();
 }
@@ -249,6 +244,10 @@ void test_framework_vassert(bool expression, unsigned int line_number, const cha
         error_message = NULL;
     }
     CU_assertImplementation(expression, line_number, error_message, file_name, "", CU_FALSE);
+    if (!expression) {
+        printf("FAILED\n");
+        printf("\t\t%s:%d - %s\n", file_name, line_number, error_message);
+    }
     free(error_message);
     if (!expression) {
         CU_pTest current_test = CU_get_current_test();

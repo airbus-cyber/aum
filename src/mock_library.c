@@ -24,7 +24,9 @@
 #include <mock_library.h>
 #include <mock_list.h>
 
+// TODO should remove the static here and put it somewhere else to group together the whole global state with its API
 static mock_list_t *_mock_list = NULL;
+// TODO why is this boolean needed?
 static bool _is_initialized = false;
 
 void mock_library_initialize(void)
