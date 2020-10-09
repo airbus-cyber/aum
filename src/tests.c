@@ -19,7 +19,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
+// TODO most probably inline this module, not necessary
 /* PKG Public Includes */
 #include <aum/mock.h>
 /* PKG Internal Includes */

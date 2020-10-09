@@ -28,6 +28,8 @@
 #include <mock_library.h>
 #include <tests.h>
 
+static bool _current_test_failed = false;
+
 /******************************************************************************
  * Implémentation des fonctions publiques de l'interface                      *
  ******************************************************************************/
@@ -151,13 +153,14 @@ static void _stdout_before_test_handler(const CU_pTest test,
                                         const CU_pSuite __attribute__((unused)) suite)
 {
   printf("\tTest: %s... ", test->pName);
+  _current_test_failed = false;
 }
 
 static void _stdout_after_test_handler(const CU_pTest __attribute__((unused)) test,
                                        const CU_pSuite __attribute__((unused)) suite,
-                                       const CU_pFailureRecord failure)
+                                       const CU_pFailureRecord __attribute__((unused)) failure)
 {
-    if (failure == NULL) {
+    if (!_current_test_failed) {
         printf("SUCCESS\n");
     }
     tests_common_after_test_handler();
@@ -245,6 +248,7 @@ void test_framework_vassert(bool expression, unsigned int line_number, const cha
     }
     CU_assertImplementation(expression, line_number, error_message, file_name, "", CU_FALSE);
     if (!expression) {
+        _current_test_failed = true;
         printf("FAILED\n");
         printf("\t\t%s:%d - %s\n", file_name, line_number, error_message);
     }
