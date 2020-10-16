@@ -14,14 +14,14 @@ Requires:   CUnit
 %build
 
 %install
-mkdir -p %{buildroot}/usr/local/
-cp -r ./include %{buildroot}/usr/local/
-mkdir -p %{buildroot}/%{_libdir}
-cp -r ./libaum.so %{buildroot}/%{_libdir}
+mkdir -p %{buildroot}/usr
+cp -r ./usr/include %{buildroot}%{_includedir}
+cp -r ./usr/lib64 %{buildroot}/%{_libdir}
 
 %files
-/usr/local/include
+%{_includedir}
 %{_libdir}/libaum.so
+%{_libdir}/pkgconfig/aum.pc
 
 %changelog
 

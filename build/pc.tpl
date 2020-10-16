@@ -1,6 +1,6 @@
-prefix=%PREFIX%
-includedir=${prefix}/include
-libdir=${prefix}/lib
+prefix=%CONFIG_PREFIX%
+includedir=%CONFIG_PREFIX%/include
+libdir=%CONFIG_LIBDIR%
 
 Name: %NAME%
 Description: %DESCRIPTION%

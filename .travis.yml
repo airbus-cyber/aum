@@ -1,7 +1,7 @@
 os: linux
 dist: bionic
 env:
-  - DISTRIBUTION=centos PACKAGE=rpm
+  - DISTRIBUTION=centos PACKAGE=rpm CONFIG_PREFIX=/usr CONFIG_LIBDIR=${CONFIG_PREFIX}/lib64
   - DISTRIBUTION=ubuntu PACKAGE=deb
 services:
   - docker
