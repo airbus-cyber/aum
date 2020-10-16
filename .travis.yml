@@ -8,7 +8,7 @@ services:
 before_install:
   - docker build --force-rm --file build/dockers/${DISTRIBUTION}.Dockerfile --tag build-docker .
 script:
-  - docker run --volume ${TRAVIS_BUILD_DIR}:/workspace --rm build-docker /bin/sh -c "./configure && make && make test && make ${PACKAGE}"
+  - docker run --volume ${TRAVIS_BUILD_DIR}:/workspace --rm build-docker /bin/sh -c "./configure && make && make test && VERBOSE=true make ${PACKAGE}"
 language: c
 deploy:
     - provider: releases
