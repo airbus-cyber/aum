@@ -57,13 +57,9 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) 
 }
 
 static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, _runner_arguments_t *arguments) {
-    aum_runner_t *runner = runner_create();
+    aum_runner_t *runner = runner_create(test_suites, test_suites_count);
     if (runner == NULL) {
         return false;
-    }
-
-    for (int i = 0; i < test_suites_count; i++) {
-        runner_register_suite(runner, test_suites[i]);
     }
 
     aum_runner_result_t result = runner_execute_tests(runner);

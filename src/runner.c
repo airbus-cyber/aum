@@ -57,15 +57,21 @@ static aum_runner_result_t _convert_run_result(bool result)
 }
 
 
-aum_runner_t *runner_create()
+aum_runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count)
 {
     _print_banner();
     if (!test_framework_initialize()) {
         return NULL;
     }
     mock_library_initialize();
-    aum_runner_t *this = (aum_runner_t *)malloc(sizeof(aum_runner_t));
+    aum_runner_t *this = (aum_runner_t *) malloc(sizeof(aum_runner_t));
     this->suites = NULL;
+
+    for (int i = 0; i < test_suites_count; i++) {
+        // TODO error code not handled here!!!!!!!! (careful of leaks too)
+        runner_register_suite(this, test_suites[i]);
+    }
+
     return this;
 }
 
@@ -103,7 +109,7 @@ void runner_destroy(aum_runner_t *this)
 
 aum_runner_t *aum_runner_create()
 {
-    return runner_create();
+    return runner_create(NULL, 0);
 }
 
 bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite)

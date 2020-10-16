@@ -29,7 +29,7 @@
  *
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
-aum_runner_t *runner_create(void);
+aum_runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count);
 
 /*!
  * \brief Register test suites
