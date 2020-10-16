@@ -11,8 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - macro AUM_MAIN_RUN to replace the hand-written main function
 - README.md
-- Added flag -Wmissing-declarations when compiling source
-- Added target install to Makefile
+- flag -Wmissing-declarations when compiling source
+- target install to Makefile
+- aum.pc into the RPM package
 
 ### Deprecated
 - all functions in aum/runner.h in favor of macro AUM_MAIN_RUN
