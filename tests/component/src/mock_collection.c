@@ -32,4 +32,5 @@
 AUM_MOCK_CREATE_VOID(uid_t, getuid);
 AUM_MOCK_CREATE(void *, malloc, size_t);
 AUM_MOCK_CREATE(int, chmod, const char *, mode_t);
+AUM_MOCK_CREATE(int, vasprintf, char **, const char *, va_list);
 

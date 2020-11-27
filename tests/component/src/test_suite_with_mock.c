@@ -23,9 +23,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
-/* PKG includes */
+#include <stdarg.h>
+
 #include <aum.h>
 #include <test/test_suites.h>
+
 /******************************************************************************
  * Implémentation des tests de la suite "Suite with Mock"                     *
  ******************************************************************************/
@@ -263,6 +265,20 @@ AUM_TEST(AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_fail
   AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1);
 }
 
+static void _vasprintf(const char *fmt, ...)
+{
+    char *strp;
+    va_list additional_messages;
+    va_start(additional_messages, fmt);
+    vasprintf(&strp, fmt, additional_messages);
+    va_end(additional_messages);
+}
+
+AUM_TEST(method_with_va_list_argument__should_not_failed_when_called)
+{
+    _vasprintf("");
+}
+
 /******************************************************************************
  * Suite de tests                                                             *
  ******************************************************************************/
@@ -289,5 +305,6 @@ AUM_TEST_SUITE(test_suite_with_mock,
                &AUM_ASSERT_WAS_CALLED_WITH__should_succeed_if_matching_call_is_present_once,
                &AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters,
                &AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure,
-               &AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure);
+               &AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure,
+               &method_with_va_list_argument__should_not_failed_when_called);
 

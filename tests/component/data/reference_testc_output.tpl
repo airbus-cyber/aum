@@ -42,7 +42,7 @@ Suite: test_suite_with_mock...
 	Test: aum_mock_reset__should_clean_call_count... SUCCESS
 	Test: AUM_ASSERT_WAS_CALLED__should_succeed_if_function_called... SUCCESS
 	Test: AUM_ASSERT_WAS_CALLED__should_failed_if_function_not_called... FAILED
-		tests/component/src/test_suite_with_mock.c:159 - AUM_ASSERT_WAS_CALLED("malloc") - Function malloc was never called
+		tests/component/src/test_suite_with_mock.c:161 - AUM_ASSERT_WAS_CALLED("malloc") - Function malloc was never called
 	Test: AUM_ASSERT_CALL_COUNT_EQUAL__should_succeed... SUCCESS
 	Test: aum_mock_arguments_register__should_register_last_call_arguments... SUCCESS
 	Test: AUM_ASSERT_WAS_CALLED_WITH_AT__should_succeed_with_RAW... SUCCESS
@@ -52,13 +52,14 @@ Suite: test_suite_with_mock...
 	Test: AUM_ASSERT_WAS_CALLED__should_succeed_with_function_without_arguments... SUCCESS
 	Test: AUM_ASSERT_WAS_CALLED_WITH__should_succeed_if_matching_call_is_present_once... SUCCESS
 	Test: AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters... FAILED
-		tests/component/src/test_suite_with_mock.c:247 - AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
+		tests/component/src/test_suite_with_mock.c:249 - AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
 	Test: AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure... FAILED
-		tests/component/src/test_suite_with_mock.c:258 - AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
+		tests/component/src/test_suite_with_mock.c:260 - AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
 	Test: AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure... FAILED
-		tests/component/src/test_suite_with_mock.c:263 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
+		tests/component/src/test_suite_with_mock.c:265 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
+	Test: method_with_va_list_argument__should_not_failed_when_called... WARNING: Unable to store va_list argument. It is ignored... SUCCESS
 
 
 Test suites: 2
-Tests failed/executed: 14/37
+Tests failed/executed: 14/38
 Tests skipped: 1

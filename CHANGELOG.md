@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.9.1](https://github.com/airbus-cyber/aum/releases/tag/0.9.1)
+
+### Fixed
+- calls to a mocked function with a `va_list` argument do not fail anymore. However the `va_list` argument is not stored. And so, for these functions, macros `AUM_ASSERT_WAS_CALLED_WITH` and `AUM_ASSERT_WAS_CALLED_WITH_AT` will not work as expected.
+
 ## [0.9.0](https://github.com/airbus-cyber/aum/releases/tag/0.9.0)
 
 ### Added

@@ -41,9 +41,9 @@ DEPENDS=cunit
 DEB_DEPENDS=libcunit1, libcunit1-dev
 # Flags de compilation additionnels
 CFLAGS+=-D_AUM_VERSION=\"$(VERSION)\" -D_GNU_SOURCE
-# Options d'édition de liens additionnels pour les tests unitaires
+# Additional link options for unit tests
 TESTU_LDFLAGS+=-Wl,-wrap,chmod
-TESTC_LDFLAGS+=-Wl,-wrap,getuid -Wl,-wrap,malloc -Wl,-wrap,chmod
+TESTC_LDFLAGS+=-Wl,-wrap,getuid -Wl,-wrap,malloc -Wl,-wrap,chmod -Wl,-wrap,vasprintf
 
 include Makefile.generic
 
