@@ -23,11 +23,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-/* PKG Internal Includes */
+
 #include <error.h>
 
 #define MAX_LEN 512
 
+// TODO this method is really not nice. I am sure we can do better by propagating nicely the errors up...
 void error(const char *error_message, ...)
 {
     //FIXME FREE ALL ???
