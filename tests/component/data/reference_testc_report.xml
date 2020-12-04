@@ -67,7 +67,7 @@ Test failed at line 121 in file tests/component/src/test_suite_simple.c: AUM_ASS
 		<skipped />
 	</testcase>
 </testsuite>
-<testsuite name="test_suite_with_mock" tests="22" errors="4" failures="0" skipped="0">
+<testsuite name="test_suite_with_mock" tests="23" errors="4" failures="0" skipped="0">
 	<testcase classname="test_suite_with_mock" name="aum_mock_will_return__should_succeed" time="0.0">
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="aum_mock_will_return__should_modify_behavior_of_all_subsequent_calls" time="0.0">
@@ -123,6 +123,8 @@ Test failed at line 265 in file tests/component/src/test_suite_with_mock.c: AUM_
 		</failure>
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="method_with_va_list_argument__should_not_fail_when_called" time="0.0">
+	</testcase>
+	<testcase classname="test_suite_with_mock" name="longjmp_mock__should_not_fail_when_called" time="0.0">
 	</testcase>
 </testsuite>
 </testsuites>

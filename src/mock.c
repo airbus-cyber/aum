@@ -127,9 +127,9 @@ void mock_call_count_increment(mock_t *mock)
     mock->call_count++;
 }
 
-bool mock_register_arguments(mock_t *mock, size_t arguments_count, va_list arguments)
+bool mock_register_arguments(mock_t *mock, size_t arguments_count, mock_argument_t *values)
 {
-    return mock_call_sequence_add(mock->calls, arguments_count, arguments);
+    return mock_call_sequence_add(mock->calls, arguments_count, values);
 }
 
 bool mock_get_argument(mock_t *mock, uint32_t position, mock_argument_t *argument)

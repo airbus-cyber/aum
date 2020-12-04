@@ -50,7 +50,7 @@ mock_call_sequence_t *mock_call_sequence_alloc(void);
  * \retval      true  Succès
  * \retval      false     Echec
  */
-bool mock_call_sequence_add(mock_call_sequence_t *this, size_t arguments_count, va_list arguments);
+bool mock_call_sequence_add(mock_call_sequence_t *this, size_t arguments_count, mock_argument_t *values);
 
 bool mock_call_sequence_contains(mock_call_sequence_t *this, va_list arguments);
 bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t *param, int position);

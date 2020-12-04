@@ -20,32 +20,14 @@
 */
 
 
-/*!
- * \file
- * \brief Interface pour implémentation des wrappers
- */
-
 #pragma once
 
 #include <stddef.h>
 #include <stdbool.h>
 #include <aum/mock.h>
 
-/******************************************************************************
- * Fonctions publiques                                                        *
- ******************************************************************************/
+void *aum_mock_register_call(unsigned long *return_code, const char *function_name, void *real_function, size_t arguments_count, mock_argument_t *values);
 
-/*! \brief Enregistrement des arguments et incrément du compteur d'appel 
- *         dans le descripteur de mock associé à la fonction `function_name`
- *
- * \param[in]   function_name,... Nom de la fonction cible, suivi des arguments
- *                                à enregistrer
- */
-void *aum_mock_register_call(unsigned long *return_code, const char *function_name, void *real_function, size_t arguments_count, ...);
-
-/*
- * Macros intermédiaires
- */
 
 #define _EXTRACT_N(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, N, ...) N
 #define _COUNT_ARGUMENTS(...) _EXTRACT_N(_0, ## __VA_ARGS__, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
@@ -92,16 +74,27 @@ void *aum_mock_register_call(unsigned long *return_code, const char *function_na
 
 #define _ARGUMENT_LIST(N, __types...) _CONCATENATE(_ARGUMENT_LIST, N)(__types)
 
+#define _ARGUMENT_LIST_WITH_CAST_0() 
+#define _ARGUMENT_LIST_WITH_CAST_1(__type) (mock_argument_t) x1
+#define _ARGUMENT_LIST_WITH_CAST_2(__type, __types...) (mock_argument_t) x2, _ARGUMENT_LIST_WITH_CAST_1(__types)
+#define _ARGUMENT_LIST_WITH_CAST_3(__type, __types...) (mock_argument_t) x3, _ARGUMENT_LIST_WITH_CAST_2(__types)
+#define _ARGUMENT_LIST_WITH_CAST_4(__type, __types...) (mock_argument_t) x4, _ARGUMENT_LIST_WITH_CAST_3(__types)
+#define _ARGUMENT_LIST_WITH_CAST_5(__type, __types...) (mock_argument_t) x5, _ARGUMENT_LIST_WITH_CAST_4(__types)
+#define _ARGUMENT_LIST_WITH_CAST_6(__type, __types...) (mock_argument_t) x6, _ARGUMENT_LIST_WITH_CAST_5(__types)
+#define _ARGUMENT_LIST_WITH_CAST_7(__type, __types...) (mock_argument_t) x7, _ARGUMENT_LIST_WITH_CAST_6(__types)
+#define _ARGUMENT_LIST_WITH_CAST_8(__type, __types...) (mock_argument_t) x8, _ARGUMENT_LIST_WITH_CAST_7(__types)
+#define _ARGUMENT_LIST_WITH_CAST_9(__type, __types...) (mock_argument_t) x9, _ARGUMENT_LIST_WITH_CAST_8(__types)
+#define _ARGUMENT_LIST_WITH_CAST_10(__type, __types...) (mock_argument_t) x10, _ARGUMENT_LIST_WITH_CAST_9(__types)
+
 #define _REAL_FUNCTION(__name) __real_ ## __name
 
-/*! \brief Macro helper pour les déclaration nécessaires à un mock */
 #define _DECLARE(__ret__, __name, __PARAMETER_LIST)     \
   typedef __ret__ (*__name ## _t) ( __PARAMETER_LIST ); \
   __ret__ _REAL_FUNCTION(__name) ( __PARAMETER_LIST );  \
   __ret__ __wrap_ ## __name ( __PARAMETER_LIST )
 
-#define _WRAPPER_MOCK_REGISTER_CALL(__return_code, __name, N, __types...) \
-    aum_mock_register_call(&__return_code, #__name, &_REAL_FUNCTION(__name), N _SIZEOF_LIST ## N(__types) )
+#define _WRAPPER_MOCK_REGISTER_CALL(__return_code, __name, N, __values)                   \
+    aum_mock_register_call(&__return_code, #__name, &_REAL_FUNCTION(__name), N, __values)
 
 /* This instruction is dead code, but it is helpful to signal an error, when a mistake is made in the signature of the mock. */
 #define _WRAPPER_CHECK_MOCK_SIGNATURE(__name, __arguments...) return __name( __arguments ); 
@@ -112,7 +105,8 @@ void *aum_mock_register_call(unsigned long *return_code, const char *function_na
 
 #define _WRAPPER_BODY(__return_type, __name, N, __types...)                                      \
     unsigned long return_code;                                                                   \
-    __name ## _t mock_function = _WRAPPER_MOCK_REGISTER_CALL( return_code, __name, N, __types);  \
+    mock_argument_t values[] = { _ARGUMENT_LIST_WITH_CAST_ ## N(__types) };                      \
+    __name ## _t mock_function = _WRAPPER_MOCK_REGISTER_CALL( return_code, __name, N, values);   \
     if (mock_function == NULL) {                                                                 \
         return (__return_type) return_code;                                                      \
     }                                                                                            \
@@ -123,13 +117,7 @@ void *aum_mock_register_call(unsigned long *return_code, const char *function_na
     _WRAPPER_BODY(__ret__, __name, N, __types)             \
   }
 
-/******************************************************************************
- * Macros helper pour la génération semi-automatique des wrappers             *
- ******************************************************************************/
-
-/*! \brief Macro helper création d'un mock de type void (sans arguments). A utiliser si vous compilez sans les extensions GNU. */
 #define AUM_MOCK_CREATE_VOID(__ret__, __name) _CREATE_N(__ret__, __name, 0)
 
-/*! \brief Macro helper création d'un mock avec un nombre arbitraire d'arguments */
 #define AUM_MOCK_CREATE(__ret__, __name, __types...) _CREATE_N(__ret__, __name, _COUNT_ARGUMENTS(__types), __types)
 

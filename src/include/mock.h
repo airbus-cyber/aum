@@ -119,7 +119,7 @@ void mock_call_count_increment(mock_t *mock);
  * \retval      true                Succès de l'enregistrement des arguments
  * \retval      false               Echec de l'enregistrement des arguments
  */
-bool mock_register_arguments(mock_t *mock, size_t arguments_count, va_list arguments);
+bool mock_register_arguments(mock_t *mock, size_t arguments_count, mock_argument_t *values);
 
 /*! \brief Récupération des arguments du dernier appel à la fonction mockée
  */

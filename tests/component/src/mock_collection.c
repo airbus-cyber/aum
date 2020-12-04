@@ -25,12 +25,11 @@
 #include <unistd.h>
 #include <aum.h>
 #include <aum_mock_create.h>
+#include <setjmp.h>
 
-/******************************************************************************
- * Création des wrappers de la collection de mocks                            *
- ******************************************************************************/
 AUM_MOCK_CREATE_VOID(uid_t, getuid);
 AUM_MOCK_CREATE(void *, malloc, size_t);
 AUM_MOCK_CREATE(int, chmod, const char *, mode_t);
 AUM_MOCK_CREATE(int, vasprintf, char **, const char *, va_list);
+AUM_MOCK_CREATE(void, longjmp, jmp_buf, int);
 

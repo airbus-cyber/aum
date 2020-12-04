@@ -51,6 +51,7 @@ typedef struct aum_runner_s aum_runner_t;
  *
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 aum_runner_t *aum_runner_create(void);
 
 /*!
@@ -60,6 +61,7 @@ aum_runner_t *aum_runner_create(void);
  * \return              false    Failure
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
 
 /*!
@@ -70,6 +72,7 @@ bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
  * \return              AUM_ERROR       Fatal error during the tests execution
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this);
 
 /*!
@@ -77,6 +80,7 @@ aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this);
  *
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_runner_t *this, const char *suite_name, const char *test_name);
 
 /*!
@@ -84,6 +88,7 @@ aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_r
  *
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 bool aum_runner_print_xml_report(aum_runner_t *this, const char *path);
 
 /*!
@@ -91,5 +96,6 @@ bool aum_runner_print_xml_report(aum_runner_t *this, const char *path);
  *
  * \deprecated Use macro AUM_MAIN_RUN instead
  */
+// TODO remove this method
 void aum_runner_destroy(aum_runner_t *this);
 

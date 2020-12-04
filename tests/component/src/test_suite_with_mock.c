@@ -24,7 +24,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdarg.h>
-
+#include <setjmp.h>
 #include <aum.h>
 #include <test/test_suites.h>
 
@@ -279,6 +279,14 @@ AUM_TEST(method_with_va_list_argument__should_not_fail_when_called)
     _vasprintf("");
 }
 
+AUM_TEST(longjmp_mock__should_not_fail_when_called)
+{
+    jmp_buf env;
+    if (setjmp(env) == 0) {
+        longjmp(env, 1);
+    }
+}
+
 /******************************************************************************
  * Suite de tests                                                             *
  ******************************************************************************/
@@ -306,5 +314,6 @@ AUM_TEST_SUITE(test_suite_with_mock,
                &AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters,
                &AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure,
                &AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure,
-               &method_with_va_list_argument__should_not_fail_when_called);
+               &method_with_va_list_argument__should_not_fail_when_called,
+               &longjmp_mock__should_not_fail_when_called);
 

@@ -39,26 +39,23 @@ static void *_get_fake(mock_t *mock, unsigned long *return_code, void *real_func
     return real_function;
 }
 
-static void _register_call(mock_t *mock, size_t arguments_count, va_list arguments)
+static void _register_call(mock_t *mock, size_t arguments_count, mock_argument_t *values)
 {
     mock_call_count_increment(mock);
-    bool register_rc = mock_register_arguments(mock, arguments_count, arguments);
+    bool register_rc = mock_register_arguments(mock, arguments_count, values);
     if (!register_rc) {
         const char *function_name = mock_get_function_name(mock);
         error("Failed to register arguments for function '%s'\n", function_name);
     }
 }
 
-void *aum_mock_register_call(unsigned long *return_code, const char *function_name, void *real_function, size_t arguments_count, ...)
+void *aum_mock_register_call(unsigned long *return_code, const char *function_name, void *real_function, size_t arguments_count, mock_argument_t *values)
 {
     mock_t *mock = mock_library_search_mock(function_name);
     if (mock == NULL) {
         return real_function;
     }
-    va_list arguments_ptr;
-    va_start(arguments_ptr, arguments_count);
-    _register_call(mock, arguments_count, arguments_ptr);
-    va_end(arguments_ptr);
+    _register_call(mock, arguments_count, values);
     return _get_fake(mock, return_code, real_function);
 }
 
