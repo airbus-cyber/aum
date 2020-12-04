@@ -122,7 +122,7 @@ Test failed at line 260 in file tests/component/src/test_suite_with_mock.c: AUM_
 Test failed at line 265 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
 		</failure>
 	</testcase>
-	<testcase classname="test_suite_with_mock" name="method_with_va_list_argument__should_not_failed_when_called" time="0.0">
+	<testcase classname="test_suite_with_mock" name="method_with_va_list_argument__should_not_fail_when_called" time="0.0">
 	</testcase>
 </testsuite>
 </testsuites>
