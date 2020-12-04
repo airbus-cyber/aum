@@ -273,6 +273,7 @@ static void _vasprintf(const char *fmt, ...)
     va_start(additional_messages, fmt);
     vasprintf(&strp, fmt, additional_messages);
     va_end(additional_messages);
+    free(strp);
 }
 
 AUM_TEST(method_with_va_list_argument__should_not_fail_when_called)
