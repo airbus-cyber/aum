@@ -25,6 +25,7 @@
 #include <sys/stat.h>
 #include <stdarg.h>
 #include <setjmp.h>
+
 #include <aum.h>
 #include <test/test_suites.h>
 

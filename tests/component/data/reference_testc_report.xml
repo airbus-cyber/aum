@@ -88,7 +88,7 @@ Test failed at line 121 in file tests/component/src/test_suite_simple.c: AUM_ASS
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED__should_failed_if_function_not_called" time="0.0">
 		<failure>
-Test failed at line 161 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED("malloc") - Function malloc was never called
+Test failed at line 162 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED("malloc") - Function malloc was never called
 		</failure>
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_CALL_COUNT_EQUAL__should_succeed" time="0.0">
@@ -109,17 +109,17 @@ Test failed at line 161 in file tests/component/src/test_suite_with_mock.c: AUM_
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters" time="0.0">
 		<failure>
-Test failed at line 249 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
+Test failed at line 250 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
 		</failure>
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure" time="0.0">
 		<failure>
-Test failed at line 260 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
+Test failed at line 261 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
 		</failure>
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure" time="0.0">
 		<failure>
-Test failed at line 265 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
+Test failed at line 266 in file tests/component/src/test_suite_with_mock.c: AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
 		</failure>
 	</testcase>
 	<testcase classname="test_suite_with_mock" name="method_with_va_list_argument__should_not_fail_when_called" time="0.0">
