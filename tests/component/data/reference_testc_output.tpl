@@ -59,8 +59,9 @@ Suite: test_suite_with_mock...
 		tests/component/src/test_suite_with_mock.c:266 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
 	Test: method_with_va_list_argument__should_not_fail_when_called... SUCCESS
 	Test: longjmp_mock__should_not_fail_when_called... SUCCESS
+	Test: longjmp_mock__should_define_mock_to_do_nothing... SUCCESS
 
 
 Test suites: 2
-Tests failed/executed: 14/39
+Tests failed/executed: 14/40
 Tests skipped: 1

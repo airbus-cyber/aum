@@ -49,6 +49,11 @@ void aum_mock_will_return(const char *function_name, unsigned long return_value)
     mock_return_set(target_mock, return_value);
 }
 
+void aum_mock_will_skip(const char *function_name)
+{
+    aum_mock_will_return(function_name, 0);
+}
+
 void aum_mock_will_return_at(const char *function_name, unsigned long return_value, size_t call_number)
 {
     mock_t *target_mock = _search_mock(function_name);
