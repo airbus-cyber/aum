@@ -24,9 +24,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
-/* PKG Internal Includes */
+
 #include <mock.h>
 #include <mock_call_sequence.h>
+
 
 // TODO do a review of API and remove dead functions
 
