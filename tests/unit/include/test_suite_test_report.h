@@ -20,9 +20,8 @@
 */
 
 
+#pragma once
 #include <aum.h>
-#include <test_suites.h>
-#include <test_suite_test_report.h>
 
+aum_test_suite_t test_suite_test_report;
 
-AUM_MAIN_RUN(&test_suite_mock_list, &test_suite_test_report, &test_suite_aum);
