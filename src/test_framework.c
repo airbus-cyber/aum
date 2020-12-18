@@ -20,242 +20,126 @@
 */
 
 
-#include <CUnit/Automated.h>
-#include <CUnit/Basic.h>
 #include <stdlib.h>
-/* PKG Internal Includes */
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #include <test_framework.h>
 #include <mock_library.h>
-#include <tests.h>
+#include <mock.h>
+#include <test_suite_list.h>
+#include <file_stream.h>
+#include <runner.h>
 
-static bool _current_test_failed = false;
 
-/******************************************************************************
- * Implémentation des fonctions publiques de l'interface                      *
- ******************************************************************************/
+struct aum_runner_s {
+    test_suite_list_t *suites;
+};
 
-bool test_framework_initialize(void)
+
+static void _print_banner(void)
 {
-  return (CU_initialize_registry() == CUE_SUCCESS);
+    printf("\n\tAUM - All Ur Mocks are belongs to us - Version %s\n", _AUM_VERSION);
+    printf("\tCopyright Airbus Defence and Space CyberSecurity\n\n");
 }
 
-void test_framework_cleanup(void)
+static aum_runner_result_t _convert_run_result(bool result)
 {
-    CU_cleanup_registry();
+    if (!result) {
+        return AUM_ERROR;
+    }
+    if (runner_has_failures()) {
+        return AUM_FAILURE;
+    }
+    return AUM_SUCCESS;
 }
 
-// TODO do not forget to propagate the error code up!
-// TODO iterate on tests to get the size (until NULL, NULL)
-//      then allocate a new array of CU_TestInfo => will need to return an error code
-//      copy the elements in there (instead of the cast)
-//      after register is done => deallocate the array
-bool test_framework_register_suite(aum_test_suite_t *suite)
+
+aum_runner_t *test_framework_create(aum_test_suite_t *test_suites[], int test_suites_count)
 {
-    CU_TestInfo *tests = (CU_TestInfo *) calloc(suite->test_count+1, sizeof(CU_TestInfo));
-    if (tests == NULL) {
+    _print_banner();
+    if (!runner_initialize()) {
+        return NULL;
+    }
+    mock_library_initialize();
+    aum_runner_t *this = (aum_runner_t *) malloc(sizeof(aum_runner_t));
+    this->suites = NULL;
+
+    for (int i = 0; i < test_suites_count; i++) {
+        // TODO error code not handled here!!!!!!!! (careful of leaks too)
+        test_framework_register_suite(this, test_suites[i]);
+    }
+
+    return this;
+}
+
+bool test_framework_register_suite(aum_runner_t *this, aum_test_suite_t *suite)
+{
+    this->suites = test_suite_list_append(this->suites, suite);
+    return runner_register_suite(suite);
+}
+
+aum_runner_result_t test_framework_execute_tests(aum_runner_t *this)
+{
+    int ignored_tests_count = test_suite_list_count_ignored_tests(this->suites);
+    bool result = runner_run(ignored_tests_count);
+    return _convert_run_result(result);
+}
+
+bool test_framework_print_xml_report(aum_runner_t *this, const char *output_filename)
+{
+    file_stream_t *output_stream = file_stream_create(output_filename);
+    if (output_stream == NULL) {
         return false;
     }
-    for (int i = 0, j = 0; i < suite->test_count; i++) {
-        aum_test_t *current_test = suite->tests[i];
-        if (current_test->ignored) {
-            continue;
-        }
-        tests[j].pName = current_test->name;
-        tests[j].pTestFunc = current_test->test_function;
-        j++;
-    }
-    CU_SuiteInfo suite_registry[] = {CU_SUITE_INFO_NULL, CU_SUITE_INFO_NULL};
-    suite_registry[0].pName = suite->name;
-    suite_registry[0].pTests = tests;
-    CU_ErrorCode result = CU_register_suites(suite_registry);
-    free(tests);
-    return (result == CUE_SUCCESS);
-}
-
-/* TODO could build the xml report as a separated function after the test run with this code: */
-static int _count_suite_failures(CU_pSuite current_suite, CU_pFailureRecord current_failure)
-{
-    int result = 0;
-    while (current_failure != NULL && current_failure->pSuite == current_suite) {
-        result++;
-        current_failure = current_failure->pNext;
-    }
+    bool result = runner_print_xml_report(output_stream, this->suites);
+    file_stream_destroy(output_stream);
     return result;
 }
 
-static void _print_xml_report_failure(file_stream_t *output_stream, CU_pFailureRecord failure)
+void test_framework_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages)
 {
-    file_stream_write(output_stream, "\t\t<failure>\n");
-    file_stream_write(output_stream, "Test failed at line %d in file %s: %s\n", failure->uiLineNumber, failure->strFileName, failure->strCondition);
-    file_stream_write(output_stream, "\t\t</failure>\n");
+    runner_vassert(expression, line_number, file_name, error_message_format, additional_messages);
 }
 
-
-// TODO I am not 100% fan of the current_failure. Should ideally split in two parts: build a clean report structure. And then print.
-static CU_pFailureRecord _print_xml_report_test(file_stream_t *output_stream, char *suite_name, CU_pTest test, CU_pFailureRecord current_failure)
+void test_framework_destroy(aum_runner_t *this)
 {
-    file_stream_write(output_stream, "\t<testcase classname=\"%s\" name=\"%s\" time=\"0.0\">\n", suite_name, test->pName);
-    while (current_failure != NULL && current_failure->pTest == test) {
-        _print_xml_report_failure(output_stream, current_failure);
-        current_failure = current_failure->pNext;
-    }
-    file_stream_write(output_stream, "\t</testcase>\n");
-    return current_failure;
+    runner_cleanup();
+    test_suite_list_destroy(this->suites);
+    mock_library_destroy();
+    free(this);
 }
 
-static void _print_xml_report_ignored_test(file_stream_t *output_stream, char *suite_name, char *test_name)
+aum_runner_t *aum_runner_create()
 {
-    file_stream_write(output_stream, "\t<testcase classname=\"%s\" name=\"%s\" time=\"0.0\">\n", suite_name, test_name);
-    file_stream_write(output_stream, "\t\t<skipped />\n");
-    file_stream_write(output_stream, "\t</testcase>\n");
+    return test_framework_create(NULL, 0);
 }
 
-// TODO should move this code out => should just fill the results in the data-structure of a aum_test and then exit
-//      would also be cleaner since tests would be printed in the right order (rather than having the ignored tests at the end)
-static CU_pFailureRecord _print_xml_report_suite(file_stream_t *output_stream, CU_pSuite cu_suite, CU_pFailureRecord current_failure, aum_test_suite_t *suite)
+bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite)
 {
-    int ignored_tests_count = aum_test_suite_count_ignored_tests(suite);
-    int failure_count = _count_suite_failures(cu_suite, current_failure);
-    file_stream_write(output_stream,
-          "<testsuite name=\"%s\" tests=\"%d\" errors=\"%d\" failures=\"0\" skipped=\"%d\">\n",
-          cu_suite->pName, cu_suite->uiNumberOfTests, failure_count, ignored_tests_count);
-    for (CU_pTest current_test = cu_suite->pTest; current_test != NULL; current_test = current_test->pNext) {
-        current_failure = _print_xml_report_test(output_stream, cu_suite->pName, current_test, current_failure);
-    }
-    for (int i = 0; i < suite->test_count; i++) {
-        aum_test_t *current_test = suite->tests[i];
-        if (!current_test->ignored) {
-            continue;
-        }
-        _print_xml_report_ignored_test(output_stream, cu_suite->pName, current_test->name);
-    }
-    file_stream_write(output_stream, "</testsuite>\n");
-    return current_failure;
+    return test_framework_register_suite(this, suite);
 }
 
-bool test_framework_has_failures()
+aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this)
 {
-  return (CU_get_number_of_tests_failed() != 0);
+    return test_framework_execute_tests(this);
 }
 
-static void _stdout_before_suite_handler(const CU_pSuite suite)
+aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_runner_t *this, const char *suite_name, const char *test_name)
 {
-  printf("Suite: %s...\n", suite->pName);
+    bool result = runner_run_single_test(suite_name, test_name);
+    return _convert_run_result(result);
 }
 
-static void _stdout_after_suite_handler(const CU_pSuite __attribute__((unused)) suite,
-                                        const CU_pFailureRecord __attribute__((unused)) failure)
+bool aum_runner_print_xml_report(aum_runner_t *this, const char *output_filename)
 {
-  printf("\n\n");
+    return test_framework_print_xml_report(this, output_filename);
 }
 
-static void _stdout_before_test_handler(const CU_pTest test,
-                                        const CU_pSuite __attribute__((unused)) suite)
+void aum_runner_destroy(aum_runner_t *this)
 {
-  printf("\tTest: %s... ", test->pName);
-  _current_test_failed = false;
-}
-
-static void _stdout_after_test_handler(const CU_pTest __attribute__((unused)) test,
-                                       const CU_pSuite __attribute__((unused)) suite,
-                                       const CU_pFailureRecord __attribute__((unused)) failure)
-{
-    if (!_current_test_failed) {
-        printf("SUCCESS\n");
-    }
-    tests_common_after_test_handler();
-}
-
-static void _cunit_print_results(int ignored_tests_count)
-{
-    CU_pRunSummary run_summary = CU_get_run_summary();
-    if (run_summary == NULL) {
-        printf("Oooopsss... No run summary found, problem somewhere...\n");
-        return;
-    }
-    if (run_summary->nSuitesRun != 0) {
-        printf("Test suites: %d\n", run_summary->nSuitesRun);
-    }
-    printf("Tests failed/executed: %d/%d\n", run_summary->nTestsFailed, run_summary->nTestsRun);
-    if (ignored_tests_count != 0) {
-        printf("Tests skipped: %d\n", ignored_tests_count);
-    }
-}
-
-bool test_framework_print_xml_report(file_stream_t *output_stream, test_suite_list_t *suites) 
-{
-    file_stream_write(output_stream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-    file_stream_write(output_stream, "<testsuites>\n");
-
-    CU_pTestRegistry registry = CU_get_registry();
-    CU_pFailureRecord current_failure = CU_get_failure_list();
-    CU_pSuite current_suite = registry->pSuite;
-    while (current_suite != NULL) {
-        aum_test_suite_t *suite = test_suite_list_search(suites, current_suite->pName);
-        current_failure = _print_xml_report_suite(output_stream, current_suite, current_failure, suite);
-        current_suite = current_suite->pNext;
-    }
-
-    file_stream_write(output_stream, "</testsuites>\n");
-    return file_stream_get_status(output_stream);
-}
-
-static void _register_run_handlers(void)
-{
-    CU_set_test_start_handler(_stdout_before_test_handler);
-    CU_set_test_complete_handler(_stdout_after_test_handler);
-    CU_set_suite_start_handler(_stdout_before_suite_handler);
-    CU_set_suite_complete_handler(_stdout_after_suite_handler);
-}
-
-bool test_framework_run(int ignored_tests_count)
-{
-    _register_run_handlers();
-    CU_ErrorCode result = CU_run_all_tests();
-    _cunit_print_results(ignored_tests_count);
-
-    return (result == CUE_SUCCESS);
-}
-
-bool test_framework_run_single_test(const char *suite_name, const char *test_name)
-{
-    CU_pTestRegistry registry = CU_get_registry();
-    if (registry == NULL) {
-        return false;
-    }
-    CU_pSuite suite = CU_get_suite_by_name(suite_name, registry);
-    if (suite == NULL) {
-        return false;
-    }
-    CU_pTest test = CU_get_test_by_name(test_name, suite);
-    if (test == NULL) {
-        return false;
-    }
-
-    _register_run_handlers();
-    CU_ErrorCode result = CU_run_test(suite, test);
-    _cunit_print_results(0);
-
-    return (result == CUE_SUCCESS);
-}
-
-void test_framework_vassert(bool expression, unsigned int line_number, const char *file_name, char *error_message_format, va_list additional_messages) 
-{
-    char *error_message;
-    if (!vasprintf(&error_message, error_message_format, additional_messages)) {
-        // log an error in this case?
-        error_message = NULL;
-    }
-    CU_assertImplementation(expression, line_number, error_message, file_name, "", CU_FALSE);
-    if (!expression) {
-        _current_test_failed = true;
-        printf("FAILED\n");
-        printf("\t\t%s:%d - %s\n", file_name, line_number, error_message);
-    }
-    free(error_message);
-    if (!expression) {
-        CU_pTest current_test = CU_get_current_test();
-        longjmp(*(current_test->pJumpBuf), 1);
-    }
+    test_framework_destroy(this);
 }
 

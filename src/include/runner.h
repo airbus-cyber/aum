@@ -19,44 +19,56 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+
+/*!
+ * \file
+ * \brief Définition de l'API interne d'abstraction du framework de test externe
+ */
+
 #pragma once
 
+#include <stdbool.h>
+#include <stdarg.h>
 #include <aum/test_suite.h>
-#include <aum/runner.h>
+#include <test_suite_list.h>
+#include <file_stream.h>
 
-/*!
- * \brief Runner intialization
+/*! \brief Initialisation
  *
- * \deprecated Use macro AUM_MAIN_RUN instead
+ * \retval      true  Succès d'initialisation
+ * \retval      false     Echec d'initialisation
  */
-aum_runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count);
+bool runner_initialize(void);
 
-/*!
- * \brief Register test suites
+/*! \brief Nettoyage
+ */
+void runner_cleanup(void);
+
+/*! \brief Enregistrement d'une suite de tests
  *
- * \return              true     Success
- * \return              false    Failure
- */
-bool runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
-
-/*!
- * \brief Executes all tests
+ * \param[in]   suite_name      Nom de la suite
+ * \param[in]   tests           Ensemble de tests à enregistrer
  *
- * \return              AUM_SUCCESS     All tests successful
- * \return              AUM_FAILURE     At least one test failed
- * \return              AUM_ERROR       Fatal error during the tests execution
+ * \retval      true  Succès d'enregistrement de la suite de tests
+ * \retval      false     Echec d'enregistrement de la suite de tests
  */
-aum_runner_result_t runner_execute_tests(aum_runner_t *this);
+bool runner_register_suite(aum_test_suite_t *suite);
 
-/*!
- * \brief 
+/*! \brief Exécution des suites de tests enregistrées
  *
+ * \retval      true  L'exécution des suites de tests s'est bien déroulée
+ * \retval      false     Erreur pendant l'exécution des suites de tests
  */
-bool runner_print_xml_report(aum_runner_t *this, const char *path);
+bool runner_run(int ignored_tests_count);
 
-/*!
- * \brief 
- *
- */
-void runner_destroy(aum_runner_t *this);
+bool runner_print_xml_report(file_stream_t *output, test_suite_list_t *suites) __attribute__ ((warn_unused_result));
 
+bool runner_has_failures(void);
+
+bool runner_run_single_test(const char *suite_name, const char *test_name);
+
+//FIXME : redéfinir un type pour aum_setup_teardown_t + macro pour déclarer les fonctions
+// Cunit has a type for setup/teardown functions, but this type should be encapsulated
+// so that it is easier to remove CUnit in the future
+
+void runner_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages);

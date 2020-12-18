@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include <runner.h>
+#include <test_framework.h>
 
 #include <aum/main.h>
 
@@ -57,17 +57,17 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) 
 }
 
 static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, _runner_arguments_t *arguments) {
-    aum_runner_t *runner = runner_create(test_suites, test_suites_count);
+    aum_runner_t *runner = test_framework_create(test_suites, test_suites_count);
     if (runner == NULL) {
         return false;
     }
 
-    aum_runner_result_t result = runner_execute_tests(runner);
+    aum_runner_result_t result = test_framework_execute_tests(runner);
     if (arguments->xml_output_path != NULL) {
-        runner_print_xml_report(runner, arguments->xml_output_path);
+        test_framework_print_xml_report(runner, arguments->xml_output_path);
     }
 
-    runner_destroy(runner);
+    test_framework_destroy(runner);
     if (result == AUM_ERROR) {
         return false;
     }
