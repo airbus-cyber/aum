@@ -111,7 +111,6 @@ bool test_report_has_failure(test_report_t *this)
     return this->failure != NULL;
 }
 
-
 void test_report_destroy(test_report_t *this)
 {
     if (this->failure != NULL) {
