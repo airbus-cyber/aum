@@ -19,13 +19,7 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-
-/*!
- * \file
- * \brief Point d'entrée de la suite de tests unitaires
- */
 #include <aum.h>
-/* PKG Test Includes */
 #include <test/test_suites.h>
 
 AUM_MAIN_RUN(&test_suite_simple, &test_suite_with_mock);
