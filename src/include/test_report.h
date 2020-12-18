@@ -23,6 +23,7 @@
 #include <file_stream.h>
 #include <aum/test.h>
 
+
 typedef struct test_report_s test_report_t;
 
 typedef void test_report_function_t(test_report_t *this, void *context);
