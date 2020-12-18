@@ -30,7 +30,7 @@
 
 
 typedef struct {
-  char *xml_output_path;
+    char *xml_output_path;
 } _runner_arguments_t;
 
 
