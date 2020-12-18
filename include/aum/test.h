@@ -23,9 +23,12 @@
 #pragma once
 #include <stdbool.h>
 
+
+typedef void aum_test_function_t(void);
+
 typedef struct {
     char *name;
-    void (*test_function)(void);
+    aum_test_function_t *test_function;
     bool ignored;
 } aum_test_t;
 
