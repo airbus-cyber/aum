@@ -68,7 +68,6 @@ TESTC_OBJ=$(patsubst $(TESTC_SRC_DIR)/%.c,$(OUTPUT_TESTC_OBJ_DIR)/%.o,$(TESTC_SR
 # Build rules                                                                  #
 ################################################################################
 
-TESTC_DEPENDS = cunit
 TESTC_DEPENDS_CFLAGS = $(shell $(PKGCONFIG) --cflags $(TESTC_DEPENDS) 2> /dev/null)
 TESTC_DEPENDS_LDFLAGS = $(shell $(PKGCONFIG) --libs $(TESTC_DEPENDS) 2> /dev/null)
 TESTC_CFLAGS += $(CFLAGS)
@@ -105,7 +104,7 @@ runtestc: $(OUTPUT_TESTC_BINARY) | $(OUTPUT_TESTC_RESULT_DIR)
 	$(CC) $(CFLAGS) -c $(TEST_CASES)/test_suite_unused_test.c && exit 1 || echo 'OK'
 	$(MKDIR) $(RESULT_TEST_CASES_DIR)
 	$(CC) $(TESTC_CFLAGS) -fprofile-arcs -c $(TEST_CASES)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs.c -o $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs.o
-	$(LD) $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs.o -Wl,-wrap,fwrite -lcunit -L$(RESULTS_BIN_DIR) -l$(NAME) -lgcov -coverage -o $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs
+	$(LD) $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs.o -Wl,-wrap,fwrite -L$(RESULTS_BIN_DIR) -l$(NAME) -lgcov -coverage -o $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs
 # TODO add this test
 	LD_LIBRARY_PATH=./results/src/bin valgrind --error-exitcode=1 $(RESULT_TEST_CASES_DIR)/test_suite_aum_should_not_generate_leaks_with_option_fprofile-arcs
 	$(CC) $(CFLAGS) -c $(TEST_CASES)/test_suite_invalid_mock_signature.c && exit 1 || echo 'OK'

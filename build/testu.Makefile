@@ -56,14 +56,6 @@ endif
 
 RESULTS_TESTU_REPORT=$(RESULTS_REPORT_DIR)/testu.xml
 
-TESTU_DEPENDS+=cunit
-# TODO most probably move this out in configure?
-TESTU_DEPENDS_RESULTS=$(shell $(PKGCONFIG) --cflags $(TESTU_DEPENDS) 2>&1 > /dev/null ; echo $$?)
-
-ifneq ($(TESTU_DEPENDS_RESULTS), $(COMMAND_SUCCESS))
-$(error Unknown dependence among test dependences: $(TESTU_DEPENDS))
-endif
-
 TESTU_DIR=./tests/unit
 TESTU_INCLUDE_DIR=$(TESTU_DIR)/include
 
@@ -140,7 +132,7 @@ rungcov: $(RESULTS_TESTU_BINARY) | $(RESULTS_REPORT_DIR)
 	$(V) $(GCOV) --root=. --output=$(GCOV_REPORT_PATH)
 
 help::
-	$(info runtestu       Runs unit tests - CUnit report: '$(RESULTS_REPORT_DIR)')
+	$(info runtestu       Runs unit tests - Xunit report: '$(RESULTS_REPORT_DIR)')
 	$(info valgrindu      Runs unit tests with Valgrind - Valgrind report: '$(VALGRIND_TESTU_REPORT_PATH)')
 	$(info rungcov        Runs unit tests with gcov - GCov report: '$(GCOV_REPORT_PATH)')
 

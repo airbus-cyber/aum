@@ -23,7 +23,6 @@
 ##
 ## Variables prises en compte sur la ligne de commande:
 ##
-## PKG_CUNIT_OUTPUT=XML    Génération des rapports CUnit en XML
 ## VERBOSE=1               Affichage des commandes
 ## DESTDIR=/path           Pour règle install
 ##
@@ -36,7 +35,7 @@ DESCRIPTION="AUM Testing Framework"
 # Version du paquet
 VERSION=0.10.0
 # Dépendances du paquet - Ces dépendances doivent fournir un fichier pkgconfig
-DEPENDS=cunit
+DEPENDS=
 # Dépendances Debian du paquet - Ces dépendances seront renseignées dans le fichier control du paquet Debian
 DEB_DEPENDS=
 # Flags de compilation additionnels
