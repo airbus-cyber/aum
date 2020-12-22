@@ -12,8 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - type `aum_test_function_t`
 
 ### Changed
-- signature of `aum_main_run` so that the `test_suites_count` is now an `unsigned int`
-- field `test_count` of `aum_test_suite_t` is now an `unsigned int`
+- signature of `aum_main_run` so that parameter `test_suites_count` is an `unsigned int`
+- signature of `aum_mock_get_parameter_at` so that parameter `position` is an `unsigned int`
+- signature of `aum_mock_was_called_with_at` so that parameter `position` is an `unsigned int`
+- field `test_count` of `aum_test_suite_t` is an `unsigned int`
 
 ### Removed
 - methods `aum_runner_create`, `aum_runner_register_suite`, `aum_runner_execute_tests`, `aum_runner_execute_single_test`, `aum_runner_print_xml_report`, `aum_runner_destroy`

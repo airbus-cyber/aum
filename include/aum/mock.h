@@ -34,30 +34,25 @@ typedef unsigned long mock_argument_t;
 
 typedef struct mock_s mock_t;
 
-void            aum_mock_will_return(const char    *function_name,
-                                     unsigned long  return_value);
+void aum_mock_will_return(const char *function_name, unsigned long return_value);
 
 /*! \brief Configures a mock so that it does nothing when called. Valid only for mock of functions with a void return type.
  *
  * \param[in]   function_name   Named of the mocked function
  */
-void            aum_mock_will_skip(const char         *function_name);
+void aum_mock_will_skip(const char *function_name);
 
-void            aum_mock_will_return_at(const char    *function_name,
-                                        unsigned long  return_value,
-                                        size_t         call_number);
+void aum_mock_will_return_at(const char *function_name, unsigned long return_value, size_t call_number);
 
-void            aum_mock_will_execute(const char *function_name, void *function_ptr);
+void aum_mock_will_execute(const char *function_name, void *function_ptr);
 
-void            aum_mock_reset(void);
+void aum_mock_reset(void);
 
-size_t          aum_mock_get_call_count(const char *function_name);
+size_t aum_mock_get_call_count(const char *function_name);
 
-mock_argument_t aum_mock_get_parameter_at(const char *function_name, int position);
+mock_argument_t aum_mock_get_parameter_at(const char *function_name, unsigned int position);
 
-bool		aum_mock_was_called_with_at(const char      *function_name,
-					    int              position,
-					    aum_parameter_t *param);
+bool aum_mock_was_called_with_at(const char *function_name, unsigned int position, aum_parameter_t *param);
 
-bool            aum_mock_was_called_with(const char *function_name, ...);
+bool aum_mock_was_called_with(const char *function_name, ...);
 

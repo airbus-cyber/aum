@@ -71,7 +71,7 @@ size_t aum_mock_get_call_count(const char *function_name)
     return mock_call_count_get(target_mock);
 }
 
-mock_argument_t aum_mock_get_parameter_at(const char *function_name, int position)
+mock_argument_t aum_mock_get_parameter_at(const char *function_name, unsigned int position)
 {
     mock_t *target_mock = _search_mock(function_name);
     mock_argument_t argument;
@@ -81,7 +81,7 @@ mock_argument_t aum_mock_get_parameter_at(const char *function_name, int positio
     return argument;
 }
 
-bool aum_mock_was_called_with_at(const char *function_name, int position, aum_parameter_t * param)
+bool aum_mock_was_called_with_at(const char *function_name, unsigned int position, aum_parameter_t * param)
 {
     mock_t *target_mock = _search_mock(function_name);
     mock_call_sequence_t *calls = mock_get_calls(target_mock);

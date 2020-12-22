@@ -112,8 +112,7 @@ void *mock_fake_function_get(mock_t *mock)
     return mock->fake_function;
 }
 
-void mock_fake_function_set(mock_t *mock,
-                                                void            *fake_function)
+void mock_fake_function_set(mock_t *mock, void *fake_function)
 {
   mock->fake_function = fake_function;
 }
