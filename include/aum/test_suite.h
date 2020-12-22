@@ -30,8 +30,7 @@
 typedef struct {
     char *name;
     aum_test_t **tests;
-// TODO should be an unsigned int
-    int test_count;
+    unsigned int test_count;
 } aum_test_suite_t;
 
 #define _ARRAY_LENGTH(__array) sizeof(__array)/sizeof(*__array)

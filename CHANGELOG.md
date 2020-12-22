@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - signature of `aum_main_run` so that the `test_suites_count` is now an `unsigned int`
+- field `test_count` of `aum_test_suite_t` is now an `unsigned int`
 
 ### Removed
 - methods `aum_runner_create`, `aum_runner_register_suite`, `aum_runner_execute_tests`, `aum_runner_execute_single_test`, `aum_runner_print_xml_report`, `aum_runner_destroy`
