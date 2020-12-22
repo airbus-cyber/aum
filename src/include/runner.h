@@ -45,4 +45,3 @@ void runner_reset_mocks(runner_t *this);
 
 void runner_free(runner_t *this);
 
-

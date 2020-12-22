@@ -101,4 +101,3 @@ void runner_free(runner_t *this)
     free(this);    
 }
 
-
