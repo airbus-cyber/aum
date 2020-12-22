@@ -92,6 +92,14 @@ include $(SCRIPT_DIR)/build.Makefile
 
 include $(SCRIPT_DIR)/testu.Makefile
 include $(SCRIPT_DIR)/testc.Makefile
+
+.PHONY: test
+
+test: runtestu runtestc
+
+help::
+	$(info test           Runs all tests)
+
 include $(SCRIPT_DIR)/static_checks.Makefile
 include $(SCRIPT_DIR)/version.Makefile
 include $(SCRIPT_DIR)/clean.Makefile
@@ -115,7 +123,7 @@ include $(SCRIPT_DIR)/jenkins.Makefile
 RESULTS_API_DIR=$(RESULTS_DIR)/api
 RESULTS_API_DOC=$(RESULTS_API_DIR)/html
 
-.PHONY: test dev_doc
+.PHONY: dev_doc
 
 dev_doc: $(RESULTS_API_DOC)
 
@@ -128,6 +136,4 @@ $(RESULTS_API_DIR):
 
 help::
 	$(info dev_doc        Generates public API documentation in '$(RESULTS_API_DIR)')
-
-test: runtestu runtestc
 
