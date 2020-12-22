@@ -22,19 +22,6 @@
 
 #include <test_suite_list.h>
 
-static void _accumulate_ignored_tests_count(void *element, void *data)
-{
-    aum_test_suite_t *suite = (aum_test_suite_t *) element;
-    int *result = (int *) data;
-    *result += aum_test_suite_count_ignored_tests(suite);
-}
-
-int test_suite_list_count_ignored_tests(test_suite_list_t *this)
-{
-    int result = 0;
-    list_iter(this, _accumulate_ignored_tests_count, &result);
-    return result;
-}
 
 test_suite_list_t *test_suite_list_append(test_suite_list_t *this, aum_test_suite_t *suite)
 {

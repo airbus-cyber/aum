@@ -33,5 +33,3 @@ aum_test_suite_t *test_suite_list_search(test_suite_list_t *this, const char *na
 
 void test_suite_list_destroy(test_suite_list_t *this);
 
-int test_suite_list_count_ignored_tests(test_suite_list_t *suites);
-
