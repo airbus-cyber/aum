@@ -109,4 +109,3 @@ void test_framework_reset_mocks(void)
     runner_reset_mocks(_runner);
 }
 
-

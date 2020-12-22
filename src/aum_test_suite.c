@@ -23,17 +23,6 @@
 #include <string.h>
 #include <aum/test_suite.h>
 
-int aum_test_suite_count_ignored_tests(aum_test_suite_t *this)
-{
-    int result = 0;
-    for (int i = 0; i < this->test_count; i++) {
-        aum_test_t *test = this->tests[i];
-        if (test->ignored) {
-            result++;
-        }
-    }
-    return result;
-}
 
 bool aum_test_suite_has_name(aum_test_suite_t *this, const char *name)
 {

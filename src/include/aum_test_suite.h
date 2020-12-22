@@ -21,30 +21,8 @@
 
 
 #pragma once
-#include <stdbool.h>
-#include <aum/test.h>
 
-// TODO all the field should be const (char * const name, etc...) Do it in the other non opaque structure too.
-typedef struct {
-    char *name;
-    aum_test_t **tests;
-    int test_count;
-} aum_test_suite_t;
+#include <aum/test_suite.h>
 
-#define _ARRAY_LENGTH(__array) sizeof(__array)/sizeof(*__array)
-
-#define _TESTS_ARRAY(__name) _ ## __name ## _array
-
-/*! \brief Enregistement d'une suite de tests
- *
- * FIXME Explications sur le format des arguments
- * FIXME : dégager les parametres __setup, __teardown à récupérer automatiquement
- */
-#define AUM_TEST_SUITE(__name, __tests...)                 \
-static aum_test_t* _TESTS_ARRAY(__name)[] = { __tests };   \
-     aum_test_suite_t __name = {                           \
-         .name = #__name,                                  \
-         .tests = _TESTS_ARRAY(__name),                    \
-         .test_count = _ARRAY_LENGTH(_TESTS_ARRAY(__name)) \
-     };
+bool aum_test_suite_has_name(aum_test_suite_t *this, const char *name);
 
