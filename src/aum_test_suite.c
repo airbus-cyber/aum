@@ -28,3 +28,4 @@ bool aum_test_suite_has_name(aum_test_suite_t *this, const char *name)
 {
     return !strcmp(this->name, name);
 }
+
