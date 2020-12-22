@@ -28,7 +28,7 @@
 
 #include <aum/test_suite.h>
 
-int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], int test_suites_count);
+int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], unsigned int test_suites_count);
 
 /*! \def AUM_MAIN_RUN(suites...)
  *
@@ -38,7 +38,7 @@ int aum_main_run(char *command_line_arguments[], int command_line_arguments_coun
     int main(int arguments_count, char *arguments[])                                      \
     {                                                                                     \
         aum_test_suite_t *test_suites[] = { __suites };                                   \
-        int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);           \
+        unsigned int test_suites_count = sizeof(test_suites)/sizeof(aum_test_suite_t *);  \
                                                                                           \
         return aum_main_run(arguments, arguments_count, test_suites, test_suites_count);  \
     }

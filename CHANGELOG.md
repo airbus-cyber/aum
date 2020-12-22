@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- type aum_test_function_t
+- type `aum_test_function_t`
+
+### Changed
+- signature of `aum_main_run` so that the `test_suites_count` is now an `unsigned int`
 
 ### Removed
-- methods aum_runner_create, aum_runner_register_suite, aum_runner_execute_tests, aum_runner_execute_single_test, aum_runner_print_xml_report, aum_runner_destroy
-- types aum_runner_result_t, aum_runner_t
-- header aum/runner.h
-- methods aum_test_suite_count_ignored_tests, aum_test_suite_has_name
+- methods `aum_runner_create`, `aum_runner_register_suite`, `aum_runner_execute_tests`, `aum_runner_execute_single_test`, `aum_runner_print_xml_report`, `aum_runner_destroy`
+- types `aum_runner_result_t`, `aum_runner_t`
+- header `aum/runner.h`
+- methods `aum_test_suite_count_ignored_tests`, `aum_test_suite_has_name`
 
 
 ## [0.10.0](https://github.com/airbus-cyber/aum/releases/tag/0.10.0)
