@@ -41,7 +41,7 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count)
         return NULL;
     }
 
-    int   option;
+    int option;
 
     while ((option = getopt(count, arguments, "o:")) != -1) {
         switch (option) {
