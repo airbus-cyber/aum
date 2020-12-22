@@ -51,6 +51,9 @@ Test failed at line 92 in file tests/component/src/test_suite_simple.c: AUM_FAIL
 Test failed at line 99 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_EQUAL(1, x) - Expected x to be 1, but was 0
 		</failure>
 	</testcase>
+	<testcase classname="test_suite_simple" name="AUM_TEST_IGNORE__should_skip_the_test" time="0.0">
+		<skipped />
+	</testcase>
 	<testcase classname="test_suite_simple" name="AUM_FAIL_can_print_a_value" time="0.0">
 		<failure>
 Test failed at line 109 in file tests/component/src/test_suite_simple.c: AUM_FAIL - The value of x is 0
@@ -62,9 +65,6 @@ Test failed at line 109 in file tests/component/src/test_suite_simple.c: AUM_FAI
 		<failure>
 Test failed at line 121 in file tests/component/src/test_suite_simple.c: AUM_ASSERT_MEMORY_EQUAL("hello", "world") - Expected "hel", but was "wor"
 		</failure>
-	</testcase>
-	<testcase classname="test_suite_simple" name="AUM_TEST_IGNORE__should_skip_the_test" time="0.0">
-		<skipped />
 	</testcase>
 </testsuite>
 <testsuite name="test_suite_with_mock" tests="24" errors="4" failures="0" skipped="0">

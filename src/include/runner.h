@@ -20,55 +20,29 @@
 */
 
 
-/*!
- * \file
- * \brief Définition de l'API interne d'abstraction du framework de test externe
- */
-
 #pragma once
 
 #include <stdbool.h>
 #include <stdarg.h>
-#include <aum/test_suite.h>
-#include <test_suite_list.h>
 #include <file_stream.h>
+#include <test_suite_list.h>
+#include <mock.h>
+#include <aum/test_suite.h>
 
-/*! \brief Initialisation
- *
- * \retval      true  Succès d'initialisation
- * \retval      false     Echec d'initialisation
- */
-bool runner_initialize(void);
+typedef struct runner_s runner_t;
 
-/*! \brief Nettoyage
- */
-void runner_cleanup(void);
+runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count);
 
-/*! \brief Enregistrement d'une suite de tests
- *
- * \param[in]   suite_name      Nom de la suite
- * \param[in]   tests           Ensemble de tests à enregistrer
- *
- * \retval      true  Succès d'enregistrement de la suite de tests
- * \retval      false     Echec d'enregistrement de la suite de tests
- */
-bool runner_register_suite(aum_test_suite_t *suite);
+bool runner_execute_tests(runner_t *this);
 
-/*! \brief Exécution des suites de tests enregistrées
- *
- * \retval      true  L'exécution des suites de tests s'est bien déroulée
- * \retval      false     Erreur pendant l'exécution des suites de tests
- */
-bool runner_run(int ignored_tests_count);
+bool runner_print_xml_report(runner_t *this, file_stream_t *output_stream);
 
-bool runner_print_xml_report(file_stream_t *output, test_suite_list_t *suites) __attribute__ ((warn_unused_result));
+void runner_vassert(runner_t *this, bool expression, unsigned int line_number, const char *file_name, char *error_message_format, va_list additional_messages);
 
-bool runner_has_failures(void);
+mock_t *runner_search_mock(runner_t *this, const char *name);
 
-bool runner_run_single_test(const char *suite_name, const char *test_name);
+void runner_reset_mocks(runner_t *this);
 
-//FIXME : redéfinir un type pour aum_setup_teardown_t + macro pour déclarer les fonctions
-// Cunit has a type for setup/teardown functions, but this type should be encapsulated
-// so that it is easier to remove CUnit in the future
+void runner_free(runner_t *this);
 
-void runner_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages);
+
