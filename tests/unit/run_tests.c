@@ -21,7 +21,7 @@
 
 
 #include <aum.h>
-#include <test_suites.h>
+#include <test_suite_mock_list.h>
 #include <test_suite_test_failure.h>
 #include <test_suite_test_report.h>
 #include <test_suite_test_suite_report.h>
@@ -29,3 +29,4 @@
 
 
 AUM_MAIN_RUN(&test_suite_mock_list, &test_suite_test_failure, &test_suite_test_report, &test_suite_test_suite_report, &test_suite_test_framework);
+
