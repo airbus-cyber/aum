@@ -27,6 +27,7 @@
 #include <mock_call_sequence.h>
 #include <error.h>
 
+
 static mock_t *_search_mock(const char *function_name)
 {
     mock_t *result = test_framework_search_mock(function_name);
