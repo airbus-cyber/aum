@@ -21,50 +21,17 @@
 
 #pragma once
 
-#include <stdarg.h>
+#include <stdbool.h>
 #include <mock.h>
 #include <aum/test_suite.h>
 #include <aum/runner.h>
 
-/*!
- * \brief Runner intialization
- *
- * \deprecated Use macro AUM_MAIN_RUN instead
- */
-aum_runner_t *test_framework_create(aum_test_suite_t *test_suites[], int test_suites_count);
 
-/*!
- * \brief Register test suites
- *
- * \return              true     Success
- * \return              false    Failure
- */
-bool test_framework_register_suite(aum_runner_t *this, aum_test_suite_t *suite);
-
-/*!
- * \brief Executes all tests
- *
- * \return              AUM_SUCCESS     All tests successful
- * \return              AUM_FAILURE     At least one test failed
- * \return              AUM_ERROR       Fatal error during the tests execution
- */
-aum_runner_result_t test_framework_execute_tests(aum_runner_t *this);
-
-/*!
- * \brief 
- *
- */
-bool test_framework_print_xml_report(aum_runner_t *this, const char *path);
+bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, char *xml_output_path);
 
 void test_framework_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages);
 
 mock_t *test_framework_search_mock(const char *name);
 
 void test_framework_reset_mocks(void);
-
-/*!
- * \brief 
- *
- */
-void test_framework_destroy(aum_runner_t *this);
 

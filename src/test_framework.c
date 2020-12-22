@@ -58,8 +58,13 @@ static aum_runner_result_t _convert_run_result(bool result)
     return AUM_SUCCESS;
 }
 
+static bool _register_suite(aum_runner_t *this, aum_test_suite_t *suite)
+{
+    this->suites = test_suite_list_append(this->suites, suite);
+    return runner_register_suite(suite);
+}
 
-aum_runner_t *test_framework_create(aum_test_suite_t *test_suites[], int test_suites_count)
+static aum_runner_t *_create(aum_test_suite_t *test_suites[], int test_suites_count)
 {
     _print_banner();
     if (!runner_initialize()) {
@@ -71,26 +76,20 @@ aum_runner_t *test_framework_create(aum_test_suite_t *test_suites[], int test_su
 
     for (int i = 0; i < test_suites_count; i++) {
         // TODO error code not handled here!!!!!!!! (careful of leaks too)
-        test_framework_register_suite(this, test_suites[i]);
+        _register_suite(this, test_suites[i]);
     }
 
     return this;
 }
 
-bool test_framework_register_suite(aum_runner_t *this, aum_test_suite_t *suite)
-{
-    this->suites = test_suite_list_append(this->suites, suite);
-    return runner_register_suite(suite);
-}
-
-aum_runner_result_t test_framework_execute_tests(aum_runner_t *this)
+static aum_runner_result_t _execute_tests(aum_runner_t *this)
 {
     int ignored_tests_count = test_suite_list_count_ignored_tests(this->suites);
     bool result = runner_run(ignored_tests_count);
     return _convert_run_result(result);
 }
 
-bool test_framework_print_xml_report(aum_runner_t *this, const char *output_filename)
+static bool _print_xml_report(aum_runner_t *this, const char *output_filename)
 {
     file_stream_t *output_stream = file_stream_create(output_filename);
     if (output_stream == NULL) {
@@ -106,7 +105,7 @@ void test_framework_vassert(bool expression, unsigned int line_number, const cha
     runner_vassert(expression, line_number, file_name, error_message_format, additional_messages);
 }
 
-void test_framework_destroy(aum_runner_t *this)
+static void _destroy(aum_runner_t *this)
 {
     runner_cleanup();
     test_suite_list_destroy(this->suites);
@@ -114,19 +113,38 @@ void test_framework_destroy(aum_runner_t *this)
     free(this);
 }
 
+bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, char *xml_output_path) {
+    aum_runner_t *runner = _create(test_suites, test_suites_count);
+    if (runner == NULL) {
+        return false;
+    }
+
+    aum_runner_result_t result = _execute_tests(runner);
+    if (xml_output_path != NULL) {
+        _print_xml_report(runner, xml_output_path);
+    }
+
+    _destroy(runner);
+    if (result == AUM_ERROR) {
+        return false;
+    }
+    return true;
+
+}
+
 aum_runner_t *aum_runner_create()
 {
-    return test_framework_create(NULL, 0);
+    return _create(NULL, 0);
 }
 
 bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite)
 {
-    return test_framework_register_suite(this, suite);
+    return _register_suite(this, suite);
 }
 
 aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this)
 {
-    return test_framework_execute_tests(this);
+    return _execute_tests(this);
 }
 
 aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_runner_t *this, const char *suite_name, const char *test_name)
@@ -137,7 +155,7 @@ aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_r
 
 bool aum_runner_print_xml_report(aum_runner_t *this, const char *output_filename)
 {
-    return test_framework_print_xml_report(this, output_filename);
+    return _print_xml_report(this, output_filename);
 }
 
 mock_t *test_framework_search_mock(const char *name)
@@ -155,6 +173,6 @@ void test_framework_reset_mocks(void)
 
 void aum_runner_destroy(aum_runner_t *this)
 {
-    test_framework_destroy(this);
+    _destroy(this);
 }
 

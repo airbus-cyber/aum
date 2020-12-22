@@ -56,33 +56,13 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) 
     return result;
 }
 
-static bool _run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, _runner_arguments_t *arguments) {
-    aum_runner_t *runner = test_framework_create(test_suites, test_suites_count);
-    if (runner == NULL) {
-        return false;
-    }
-
-    aum_runner_result_t result = test_framework_execute_tests(runner);
-    if (arguments->xml_output_path != NULL) {
-        test_framework_print_xml_report(runner, arguments->xml_output_path);
-    }
-
-    test_framework_destroy(runner);
-    if (result == AUM_ERROR) {
-        return false;
-    }
-    return true;
-
-}
-
-
 int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], int test_suites_count) {
     _runner_arguments_t *arguments = _main_parse_arguments(command_line_arguments, command_line_arguments_count);
     if (arguments == NULL) {
         return EXIT_FAILURE;
     } 
 
-    bool success = _run_test_suites(test_suites, test_suites_count, arguments);
+    bool success = test_framework_run_test_suites(test_suites, test_suites_count, arguments->xml_output_path);
     free(arguments);
 
     if (!success) {
