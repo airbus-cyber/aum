@@ -20,18 +20,8 @@
 */
 
 
+#pragma once
 #include <aum.h>
-#include <test_suites.h>
 
-// note: it is problematic to test aum with aum => some cases will not work...
-AUM_TEST_IGNORE(aum_run__should_return_AUM_SUCCESS_on_success)
-{
-    aum_runner_t *aum = aum_runner_create();
-    bool result = aum_runner_execute_tests(aum);
-    AUM_ASSERT_EQUAL(true, result);
-    aum_runner_destroy(aum);
-}
+aum_test_suite_t test_suite_test_framework;
 
-AUM_TEST_SUITE(test_suite_aum,
-               &aum_run__should_return_AUM_SUCCESS_on_success
-);

@@ -21,11 +21,16 @@
 
 
 #include <aum.h>
-#include <test_suites.h>
-#include <test_suite_test_failure.h>
-#include <test_suite_test_report.h>
-#include <test_suite_test_suite_report.h>
-#include <test_suite_test_framework.h>
+#include <test_framework.h>
 
+// note: it is problematic to test aum with aum => some things will not work because of the global...
+AUM_TEST_IGNORE(test_framework_run_test_suites__should_return_AUM_SUCCESS_on_success)
+{
+    bool success = test_framework_run_test_suites(NULL, 0, NULL);
+    AUM_ASSERT_EQUAL(true, success);
+}
 
-AUM_MAIN_RUN(&test_suite_mock_list, &test_suite_test_failure, &test_suite_test_report, &test_suite_test_suite_report, &test_suite_test_framework);
+AUM_TEST_SUITE(test_suite_test_framework,
+               &test_framework_run_test_suites__should_return_AUM_SUCCESS_on_success
+);
+

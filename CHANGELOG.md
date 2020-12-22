@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - type aum_test_function_t
 
+### Removed
+- methods aum_runner_create, aum_runner_register_suite, aum_runner_execute_tests, aum_runner_execute_single_test, aum_runner_print_xml_report, aum_runner_destroy
+
+
 ## [0.10.0](https://github.com/airbus-cyber/aum/releases/tag/0.10.0)
 
 ### Added

@@ -26,6 +26,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <aum/runner.h>
+
 #include <test_framework.h>
 #include <mock_library.h>
 #include <mock.h>
@@ -132,32 +134,6 @@ bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_su
 
 }
 
-aum_runner_t *aum_runner_create()
-{
-    return _create(NULL, 0);
-}
-
-bool aum_runner_register_suite(aum_runner_t *this, aum_test_suite_t *suite)
-{
-    return _register_suite(this, suite);
-}
-
-aum_runner_result_t aum_runner_execute_tests(aum_runner_t *this)
-{
-    return _execute_tests(this);
-}
-
-aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_runner_t *this, const char *suite_name, const char *test_name)
-{
-    bool result = runner_run_single_test(suite_name, test_name);
-    return _convert_run_result(result);
-}
-
-bool aum_runner_print_xml_report(aum_runner_t *this, const char *output_filename)
-{
-    return _print_xml_report(this, output_filename);
-}
-
 mock_t *test_framework_search_mock(const char *name)
 {
     if (_mocks == NULL) {
@@ -169,10 +145,5 @@ mock_t *test_framework_search_mock(const char *name)
 void test_framework_reset_mocks(void)
 {
     mock_library_reset(_mocks);
-}
-
-void aum_runner_destroy(aum_runner_t *this)
-{
-    _destroy(this);
 }
 

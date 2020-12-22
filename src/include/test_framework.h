@@ -24,7 +24,6 @@
 #include <stdbool.h>
 #include <mock.h>
 #include <aum/test_suite.h>
-#include <aum/runner.h>
 
 
 bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, char *xml_output_path);

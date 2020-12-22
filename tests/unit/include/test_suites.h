@@ -23,6 +23,5 @@
 #pragma once
 #include <aum.h>
 
-aum_test_suite_t test_suite_aum;
 aum_test_suite_t test_suite_mock_list;
 
