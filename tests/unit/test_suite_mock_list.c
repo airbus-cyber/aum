@@ -22,7 +22,7 @@
 
 #include <aum.h>
 #include <mock_list.h>
-#include <test_suites.h>
+
 
 AUM_TEST(mock_list_search__should_return_NULL_when_empty)
 {
@@ -33,3 +33,4 @@ AUM_TEST(mock_list_search__should_return_NULL_when_empty)
 AUM_TEST_SUITE(test_suite_mock_list,
                &mock_list_search__should_return_NULL_when_empty
 );
+
