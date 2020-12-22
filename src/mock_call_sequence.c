@@ -137,7 +137,7 @@ static bool _all_arguments_match(size_t count, mock_argument_t *value, va_list e
   return true;
 }
 
-bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t *param, int position)
+bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t *param, unsigned int position)
 {
   mock_call_t *current_call = this->last_call;
 

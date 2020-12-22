@@ -53,7 +53,8 @@ mock_call_sequence_t *mock_call_sequence_alloc(void);
 bool mock_call_sequence_add(mock_call_sequence_t *this, size_t arguments_count, mock_argument_t *values);
 
 bool mock_call_sequence_contains(mock_call_sequence_t *this, va_list arguments);
-bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t *param, int position);
+
+bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t *param, unsigned int position);
 
 /*! \brief Récupération d'un argument dans une liste d'arguments
  */
@@ -64,3 +65,4 @@ bool mock_call_sequence_get_last(mock_call_sequence_t *this, unsigned int positi
  * \param[in]   arguments_list  Liste d'arguments à détruire
  */
 void mock_call_sequence_empty(mock_call_sequence_t *this);
+
