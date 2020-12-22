@@ -20,11 +20,10 @@
 */
 
 
-/* PKG Public Includes */
 #include <aum/asserts.h>
 #include <aum_mock_create.h>
-/* PKG Private Includes */
-#include <mock_library.h>
+
+#include <test_framework.h>
 #include <error.h>
 
 static void *_get_fake(mock_t *mock, unsigned long *return_code, void *real_function)
@@ -51,7 +50,7 @@ static void _register_call(mock_t *mock, size_t arguments_count, mock_argument_t
 
 void *aum_mock_register_call(unsigned long *return_code, const char *function_name, void *real_function, size_t arguments_count, mock_argument_t *values)
 {
-    mock_t *mock = mock_library_search_mock(function_name);
+    mock_t *mock = test_framework_search_mock(function_name);
     if (mock == NULL) {
         return real_function;
     }

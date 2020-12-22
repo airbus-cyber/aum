@@ -20,17 +20,16 @@
 */
 
 
-/* PKG Public Includes */
 #include <aum/mock.h>
 #include <aum/asserts.h>
-/* PKG Private Includes */
-#include <mock_library.h>
+
+#include <test_framework.h>
 #include <mock_call_sequence.h>
 #include <error.h>
 
 static mock_t *_search_mock(const char *function_name)
 {
-    mock_t *result = mock_library_search_mock(function_name);
+    mock_t *result = test_framework_search_mock(function_name);
     if (result == NULL) {
         error("%s: failed to find %s in the registered mocks\n", __func__, function_name);
     }
@@ -62,7 +61,7 @@ void aum_mock_will_return_at(const char *function_name, unsigned long return_val
 
 void aum_mock_reset(void)
 {
-    mock_library_reset();
+    test_framework_reset_mocks();
 }
 
 size_t aum_mock_get_call_count(const char *function_name)

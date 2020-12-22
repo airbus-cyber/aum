@@ -24,53 +24,55 @@
 #include <mock_library.h>
 #include <mock_list.h>
 
-// TODO should remove the static here and put it somewhere else to group together the whole global state with its API
-static mock_list_t *_mock_list = NULL;
-// TODO why is this boolean needed?
-static bool _is_initialized = false;
+struct mock_library_s {
+    mock_list_t *mock_list;
+};
 
-void mock_library_initialize(void)
+mock_library_t *mock_library_create(void)
 {
-    _is_initialized = true;
+    mock_library_t *this = malloc(sizeof(mock_library_t));
+    if (this == NULL) {
+        return NULL;
+    }
+
+    this->mock_list = NULL;
+
+    return this;
 }
 
-void mock_library_reset(void)
-{
-    mock_list_destroy(_mock_list);
-    _mock_list = NULL;
-}
-
-void mock_library_destroy(void)
-{
-    mock_list_destroy(_mock_list);
-    _mock_list = NULL;
-    _is_initialized = false;
-}
-
-static mock_t *_add_mock(const char *function_name)
+static mock_t *_add_mock(mock_library_t *this, const char *function_name)
 {
     mock_t *mock = mock_alloc(function_name);
     if (mock == NULL) {
         return NULL;
     }
-    mock_list_t *new_mock_list = mock_list_append(_mock_list, mock);
+    mock_list_t *new_mock_list = mock_list_append(this->mock_list, mock);
     if (new_mock_list == NULL) {
         mock_free(mock);
         return NULL;
     }
-    _mock_list = new_mock_list;
+    this->mock_list = new_mock_list;
     return mock;
 }
 
-mock_t *mock_library_search_mock(const char *name)
+mock_t *mock_library_search_mock(mock_library_t *this, const char *name)
 {
-    if (!_is_initialized) {
-        return NULL;
-    }
-    mock_t *mock = mock_list_search(_mock_list, name);
+    mock_t *mock = mock_list_search(this->mock_list, name);
     if (mock == NULL) {
-        mock = _add_mock(name);
+        mock = _add_mock(this, name);
     }
     return mock;
+}
+
+void mock_library_reset(mock_library_t *this)
+{
+    mock_list_destroy(this->mock_list);
+    this->mock_list = NULL;
+}
+
+void mock_library_destroy(mock_library_t *this)
+{
+    mock_library_reset(this);
+    free(this);
 }
 

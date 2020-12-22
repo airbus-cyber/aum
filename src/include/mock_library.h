@@ -20,19 +20,17 @@
 */
 
 
-/*!
- * \file
- * \brief FIXME
- */
-
 #pragma once
 
 #include <mock_list.h>
 
-void mock_library_initialize(void);
 
-mock_t *mock_library_search_mock(const char *name);
+typedef struct mock_library_s mock_library_t;
 
-void mock_library_reset(void);
+mock_library_t *mock_library_create(void);
 
-void mock_library_destroy(void);
+mock_t *mock_library_search_mock(mock_library_t *this, const char *name);
+
+void mock_library_reset(mock_library_t *this);
+
+void mock_library_destroy(mock_library_t *this);

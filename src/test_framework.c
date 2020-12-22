@@ -38,6 +38,8 @@ struct aum_runner_s {
     test_suite_list_t *suites;
 };
 
+static mock_library_t *_mocks;
+
 
 static void _print_banner(void)
 {
@@ -63,7 +65,7 @@ aum_runner_t *test_framework_create(aum_test_suite_t *test_suites[], int test_su
     if (!runner_initialize()) {
         return NULL;
     }
-    mock_library_initialize();
+    _mocks = mock_library_create();
     aum_runner_t *this = (aum_runner_t *) malloc(sizeof(aum_runner_t));
     this->suites = NULL;
 
@@ -108,7 +110,7 @@ void test_framework_destroy(aum_runner_t *this)
 {
     runner_cleanup();
     test_suite_list_destroy(this->suites);
-    mock_library_destroy();
+    mock_library_destroy(_mocks);
     free(this);
 }
 
@@ -136,6 +138,19 @@ aum_runner_result_t aum_runner_execute_single_test(__attribute__((unused)) aum_r
 bool aum_runner_print_xml_report(aum_runner_t *this, const char *output_filename)
 {
     return test_framework_print_xml_report(this, output_filename);
+}
+
+mock_t *test_framework_search_mock(const char *name)
+{
+    if (_mocks == NULL) {
+        return NULL;
+    }
+    return mock_library_search_mock(_mocks, name);
+}
+
+void test_framework_reset_mocks(void)
+{
+    mock_library_reset(_mocks);
 }
 
 void aum_runner_destroy(aum_runner_t *this)

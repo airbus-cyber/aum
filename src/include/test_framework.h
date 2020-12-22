@@ -22,6 +22,7 @@
 #pragma once
 
 #include <stdarg.h>
+#include <mock.h>
 #include <aum/test_suite.h>
 #include <aum/runner.h>
 
@@ -56,6 +57,10 @@ aum_runner_result_t test_framework_execute_tests(aum_runner_t *this);
 bool test_framework_print_xml_report(aum_runner_t *this, const char *path);
 
 void test_framework_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages);
+
+mock_t *test_framework_search_mock(const char *name);
+
+void test_framework_reset_mocks(void);
 
 /*!
  * \brief 
