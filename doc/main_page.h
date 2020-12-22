@@ -36,8 +36,6 @@
  * \subsection aum_compile_depends Dépendances
  *
  * Pour compiler AUM et générer l'ensemble des artifacts, les paquets suivants sont nécessaires:
- * \li <b>CUnit</b>: utilisé comme moteur de gestion des suites de tests. \b ATTENTION : seule la version 2.1-2
- *     est compatible avec AUM, la version suivante (2.1-3) introduisant une rupture d'API.
  * \li <b>doxygen</b>: utilisé pour générer la documentation de l'API et du code source
  * \li <b>graphviz</b>: utilisé par doxygen pour la génération des graphiques de dépendances
  * \li <b>make</b>: pour gestion de la compilation
@@ -47,13 +45,8 @@
  * Utiliser la commande suivante pour installer l'ensemble des dépendances (ou demander à votre administrateur
  * système si vous ne possédez pas un compte privilégié):
  * \verbatim
-$ sudo apt-get install libcunit1-dev equivs doxygen graphviz pkg-config
+$ sudo apt-get install equivs doxygen graphviz pkg-config
 \endverbatim
- *
- * <b>ATTENTION :</b>
- * A partir de Ubuntu 16 (et variantes XUbuntu, etc..), la version par défaut de CUnit est la 2.1-3, incompatible
- * à l'heure actuelle avec AUM. Les paquets libcunit1-dev et libcunit1 ne doivent donc pas être installé par 
- * apt-get mais manuellement.
  *
  * \subsection aum_compile_compile Compilation
  *
@@ -100,3 +93,4 @@ $ make install
 $ sudo dpkg -i aum_0.1.0_all.deb
 \endverbatim
  */
+

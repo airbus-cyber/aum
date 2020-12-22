@@ -3,7 +3,6 @@ Version:    {VERSION}
 Release:    1
 Summary:    {DESCRIPTION}
 License:    LGPLv2+
-Requires:   CUnit
 
 %description
 {DESCRIPTION}

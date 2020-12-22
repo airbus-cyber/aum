@@ -45,8 +45,6 @@ RESULTS_PKG_PKGCONFIG=$(RESULTS_PKG_PKGCONFIG_DIR)/$(RESULTS_PKG_PKGCONFIG_NAME)
 
 $(RESULTS_PKG_PKGCONFIG): $(RESULTS_PKG_PKGCONFIG_DIR)
 	$(V) $(SCRIPT_DIR)/create_pc.sh $(NAME) $(VERSION) $(DESCRIPTION) $(DEPENDS) > $(RESULTS_PKG_PKGCONFIG)
-# TODO: This is a hack added because cunit .pc file is incorrect. To remove once this cunit bug is fixed
-	$(V) sed -i "/Requires:/d; s/-laum/-laum -lcunit/" $(RESULTS_PKG_PKGCONFIG)
 
 $(RESULTS_PKG_PKGCONFIG_DIR):
 	$(V) $(MKDIR) $@

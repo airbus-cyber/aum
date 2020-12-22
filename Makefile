@@ -38,7 +38,7 @@ VERSION=0.10.0
 # Dépendances du paquet - Ces dépendances doivent fournir un fichier pkgconfig
 DEPENDS=cunit
 # Dépendances Debian du paquet - Ces dépendances seront renseignées dans le fichier control du paquet Debian
-DEB_DEPENDS=libcunit1, libcunit1-dev
+DEB_DEPENDS=
 # Flags de compilation additionnels
 CFLAGS+=-D_AUM_VERSION=\"$(VERSION)\" -D_GNU_SOURCE
 # Additional link options for unit tests
