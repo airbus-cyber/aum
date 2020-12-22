@@ -123,7 +123,7 @@ bool mock_register_arguments(mock_t *mock, size_t arguments_count, mock_argument
 
 /*! \brief Récupération des arguments du dernier appel à la fonction mockée
  */
-bool mock_get_argument(mock_t *mock, uint32_t position, mock_argument_t *argument);
+bool mock_get_argument(mock_t *mock, unsigned int position, mock_argument_t *argument);
 
 bool mock_has_name(mock_t *this, const char *name);
 

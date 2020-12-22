@@ -132,7 +132,7 @@ bool mock_register_arguments(mock_t *mock, size_t arguments_count, mock_argument
     return mock_call_sequence_add(mock->calls, arguments_count, values);
 }
 
-bool mock_get_argument(mock_t *mock, uint32_t position, mock_argument_t *argument)
+bool mock_get_argument(mock_t *mock, unsigned int position, mock_argument_t *argument)
 {
     return mock_call_sequence_get_last(mock->calls, position, argument);
 }
