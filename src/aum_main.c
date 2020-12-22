@@ -34,7 +34,8 @@ typedef struct {
 } _runner_arguments_t;
 
 
-static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) {
+static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count)
+{
     _runner_arguments_t *result = malloc(sizeof(_runner_arguments_t));
     if (result == NULL) {
         return NULL;
@@ -56,7 +57,8 @@ static _runner_arguments_t *_main_parse_arguments(char *arguments[], int count) 
     return result;
 }
 
-int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], unsigned int test_suites_count) {
+int aum_main_run(char *command_line_arguments[], int command_line_arguments_count, aum_test_suite_t *test_suites[], unsigned int test_suites_count)
+{
     _runner_arguments_t *arguments = _main_parse_arguments(command_line_arguments, command_line_arguments_count);
     if (arguments == NULL) {
         return EXIT_FAILURE;
