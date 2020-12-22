@@ -7,7 +7,6 @@ RUN yum --enablerepo=extras --assumeyes install centos-release-scl
 RUN yum update --assumeyes && yum install --assumeyes \
     make \
     gcc \
-    CUnit-devel \
     doxygen \
     graphviz \
     valgrind \

@@ -6,7 +6,6 @@ WORKDIR /workspace
 RUN apt-get update && apt-get install -y \
     make \
     pkg-config \
-    libcunit1-dev \
     doxygen \
     graphviz \
     valgrind
