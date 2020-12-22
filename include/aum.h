@@ -29,5 +29,4 @@
 
 #include <aum/asserts.h>
 #include <aum/mock.h>
-#include <aum/runner.h>
 #include <aum/main.h>
