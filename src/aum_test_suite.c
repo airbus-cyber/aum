@@ -21,7 +21,7 @@
 
 
 #include <string.h>
-#include <aum/test_suite.h>
+#include <aum_test_suite.h>
 
 
 bool aum_test_suite_has_name(aum_test_suite_t *this, const char *name)

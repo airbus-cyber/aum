@@ -21,6 +21,7 @@
 
 
 #include <test_suite_list.h>
+#include <aum_test_suite.h>
 
 
 test_suite_list_t *test_suite_list_append(test_suite_list_t *this, aum_test_suite_t *suite)

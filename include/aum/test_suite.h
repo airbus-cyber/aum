@@ -21,8 +21,10 @@
 
 
 #pragma once
+
 #include <stdbool.h>
 #include <aum/test.h>
+
 
 // TODO all the field should be const (char * const name, etc...) Do it in the other non opaque structure too.
 typedef struct {
