@@ -31,7 +31,7 @@
 
 typedef struct runner_s runner_t;
 
-runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count);
+runner_t *runner_create(aum_test_suite_t *test_suites[], unsigned int test_suites_count);
 
 bool runner_execute_tests(runner_t *this);
 

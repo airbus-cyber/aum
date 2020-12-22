@@ -33,7 +33,7 @@ struct runner_s {
     mock_library_t *mocks;
 };
 
-runner_t *runner_create(aum_test_suite_t *test_suites[], int test_suites_count)
+runner_t *runner_create(aum_test_suite_t *test_suites[], unsigned int test_suites_count)
 {
     runner_t *this = malloc(sizeof(runner_t));
     if (this == NULL) {
