@@ -41,7 +41,7 @@ DEB_DEPENDS=
 # Flags de compilation additionnels
 CFLAGS+=-D_AUM_VERSION=\"$(VERSION)\" -D_GNU_SOURCE
 # Additional link options for unit tests
-TESTU_LDFLAGS+=-Wl,-wrap,chmod
+TESTU_LDFLAGS+=-Wl,-wrap,chmod -Wl,-wrap,vasprintf
 TESTC_LDFLAGS+=-Wl,-wrap,getuid -Wl,-wrap,malloc -Wl,-wrap,chmod -Wl,-wrap,vasprintf -Wl,-wrap,longjmp
 
 include Makefile.generic

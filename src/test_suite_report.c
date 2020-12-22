@@ -67,6 +67,7 @@ static test_report_t **_create_array_of_test_reports(aum_test_suite_t *test_suit
     }
 
     if (_free_if_any_is_null(tests, test_count)) {
+        // TODO should free tests here!!!!
         return NULL;
     }
 

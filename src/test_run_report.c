@@ -58,6 +58,7 @@ static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_
     }
     if (_any_is_null(suites, test_suites_count)) {
         _free_all(suites, test_suites_count);
+// TODO        free(suites);
         return NULL;
     }
 
