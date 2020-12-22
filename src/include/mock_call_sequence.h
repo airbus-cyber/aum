@@ -57,7 +57,7 @@ bool mock_call_sequence_contains_at(mock_call_sequence_t *this, aum_parameter_t 
 
 /*! \brief Récupération d'un argument dans une liste d'arguments
  */
-bool mock_call_sequence_get_last(mock_call_sequence_t *this, uint32_t position, mock_argument_t *argument);
+bool mock_call_sequence_get_last(mock_call_sequence_t *this, unsigned int position, mock_argument_t *argument);
 
 /*! \brief Vide la liste des appels
  *

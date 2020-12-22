@@ -101,7 +101,7 @@ bool mock_call_sequence_add(mock_call_sequence_t *this, size_t arguments_count, 
     return true;
 }
 
-bool mock_call_sequence_get_last(mock_call_sequence_t *this, uint32_t position, mock_argument_t *argument)
+bool mock_call_sequence_get_last(mock_call_sequence_t *this, unsigned int position, mock_argument_t *argument)
 {
     mock_call_t *call = this->last_call;
     if (call == NULL) {
