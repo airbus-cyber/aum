@@ -32,9 +32,9 @@
 // TODO do a review of API and remove dead functions
 
 typedef struct {
-  bool          always;           /* si vrai, la valeur de retour va être utilisée à chaque appel */
-  int           call_number;      /* Index de l'appel auquel la valeur de retour sera utilisée. 
-                                     La valeur -1 indique qu'il n'y a pas de valeur de retour */
+  bool always;           /* si vrai, la valeur de retour va être utilisée à chaque appel */
+  unsigned int call_number;      /* Index de l'appel auquel la valeur de retour sera utilisée. 
+                                    La valeur -1 indique qu'il n'y a pas de valeur de retour */
   unsigned long return_value;
 } _return_t;
 
@@ -43,10 +43,10 @@ typedef struct {
  ******************************************************************************/
 /*! \brief Structure interne d'un descripteur de mock */
 struct mock_s {
-  const char                    *name;          /*!< Nom de la fonction mockée */
-  void                          *fake_function; /*!< Adresse de la fausse fonction */
-  int                            call_count;    /*!< Compteur d'appel à la fonction mockée */
-  _return_t                      mock_return;   /*!< Configuration du retour forcé */
+  const char *name;                    /*!< Nom de la fonction mockée */
+  void *fake_function;                 /*!< Adresse de la fausse fonction */
+  unsigned int call_count;             /*!< Compteur d'appel à la fonction mockée */
+  _return_t mock_return;               /*!< Configuration du retour forcé */
   mock_call_sequence_t *calls;         /*!< Sauvegarde des appels */
 };
 
