@@ -26,7 +26,7 @@
 #include <aum/test_suite.h>
 
 
-bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, char *xml_output_path);
+bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], unsigned int test_suites_count, char *xml_output_path);
 
 void test_framework_vassert(bool expression, unsigned int line_number, const char * file_name, char *error_message_format, va_list additional_messages);
 

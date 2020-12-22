@@ -44,7 +44,7 @@ static void _print_banner(void)
     printf("\tCopyright Airbus Defence and Space CyberSecurity\n\n");
 }
 
-static bool _initialize(aum_test_suite_t *test_suites[], int test_suites_count)
+static bool _initialize(aum_test_suite_t *test_suites[], unsigned int test_suites_count)
 {
     _runner = runner_create(test_suites, test_suites_count);
     if (_runner == NULL) {
@@ -76,7 +76,7 @@ static void _cleanup(void)
     runner_free(_runner);
 }
 
-bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], int test_suites_count, char *xml_output_path)
+bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], unsigned int test_suites_count, char *xml_output_path)
 {
     if (!_initialize(test_suites, test_suites_count)) {
         return false;
