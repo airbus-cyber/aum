@@ -72,16 +72,13 @@ TESTU_SRC=$(wildcard $(TESTU_DIR)/*.c)
 TESTU_PKG_OBJ=$(patsubst $(SRC_DIR)/%.c,$(RESULTS_TESTU_OBJ_DIR)/%.o,$(PKG_SRC))
 TESTU_OBJ=$(patsubst $(TESTU_DIR)/%.c,$(RESULTS_TESTU_OBJ_DIR)/%.o,$(TESTU_SRC))
 
-TESTU_DEPENDS_CFLAGS=$(shell $(PKGCONFIG) --cflags $(TESTU_DEPENDS) 2> /dev/null)
-TESTU_DEPENDS_LDFLAGS=$(shell $(PKGCONFIG) --libs $(TESTU_DEPENDS) 2> /dev/null)
-
 GCOV_CFLAGS=-fprofile-arcs -ftest-coverage
 TESTU_CFLAGS+=-I$(TESTU_INCLUDE_DIR)
 TESTU_CFLAGS+=-ggdb3 -O0 $(GCOV_CFLAGS)
-TESTU_CFLAGS+=$(PKG_DEPENDS_CFLAGS) $(TESTU_DEPENDS_CFLAGS)
+TESTU_CFLAGS+=$(PKG_DEPENDS_CFLAGS)
 
 GCOV_LDFLAGS=-lgcov -coverage
-TESTU_LDFLAGS+=$(TESTU_DEPENDS_LDFLAGS) $(GCOV_LDFLAGS)
+TESTU_LDFLAGS+=$(GCOV_LDFLAGS)
 
 $(RESULTS_TESTU_BINARY): $(TESTU_PKG_OBJ) $(TESTU_OBJ) | $(RESULTS_TESTU_BIN_DIR)
 	@ echo "LD	$@"
@@ -99,9 +96,7 @@ $(RESULTS_TESTU_OBJ_DIR) $(RESULTS_TESTU_BIN_DIR):
 	@ $(MKDIR) $@
 
 # Run tests
-TESTU_DEPENDS_LIBRARY_PATH=$(shell $(PKGCONFIG) --variable=libdir $(TESTU_DEPENDS) | tr ' ' ':')
-
-TESTU_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(CONFIG_LIBDIR):$(TESTU_DEPENDS_LIBRARY_PATH):$(PKG_DEPENDS_LIBRARY_PATH)
+TESTU_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(CONFIG_LIBDIR):$(PKG_DEPENDS_LIBRARY_PATH)
 
 .PHONY: runtestu
 
@@ -137,6 +132,5 @@ help::
 	$(info rungcov        Runs unit tests with gcov - GCov report: '$(GCOV_REPORT_PATH)')
 
 help_variables::
-	$(info TESTU_DEPENDS     Additional dependences for tests)
 	$(info TESTU_LDFLAGS     Linker flags for unit tests compilation)
 
