@@ -20,6 +20,8 @@
 */
 
 
+#include <stdlib.h>
+
 #include <aum.h>
 #include <aum_mock_create.h>
 
@@ -31,6 +33,29 @@
 
 
 AUM_MOCK_CREATE(int, vasprintf, char **, const char *, va_list);
+
+static bool is_within_malloc_mock = false;
+
+
+typedef void *(*malloc_t)(size_t size);
+
+void *__real_malloc(size_t size);
+
+void *__wrap_malloc (size_t size) {
+    if (is_within_malloc_mock) {
+        return __real_malloc(size);
+    }
+    is_within_malloc_mock = true;
+    unsigned long return_code;
+    mock_argument_t values[] = { (mock_argument_t) size };
+    malloc_t mock_function = aum_mock_register_call(&return_code, "malloc", &__real_malloc, 1, values);
+    is_within_malloc_mock = false;
+    if (mock_function == NULL) {
+        return (void *) return_code;
+    }
+    return mock_function(size);
+}
+
 
 AUM_MAIN_RUN(&test_suite_mock_list, &test_suite_test_failure, &test_suite_test_report, &test_suite_test_suite_report, &test_suite_test_framework);
 

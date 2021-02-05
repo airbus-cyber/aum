@@ -74,6 +74,7 @@ static bool _print_xml_report(const char *output_filename)
 static void _cleanup(void)
 {
     runner_free(_runner);
+    _runner = NULL;
 }
 
 bool test_framework_run_test_suites(aum_test_suite_t *test_suites[], unsigned int test_suites_count, char *xml_output_path)
