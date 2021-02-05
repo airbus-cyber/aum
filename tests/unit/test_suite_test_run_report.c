@@ -17,31 +17,28 @@
 
 #include <aum.h>
 
-#include <test_report.h>
-#include <stdio.h>
+#include <test_run_report.h>
+#include <test_suite_test_run_report.h>
 
-
-static test_report_t *_subject;
 
 AUM_TEST(dummy_test)
 {
-   test_failure_t *failure = test_failure_create("file_name", 0, "");
-   test_report_break_on_failure(_subject, failure);
 }
 
-AUM_TEST(test_report_destroy__should_free_failure)
+AUM_TEST_SUITE(test_suite_test_run_report_dummy_test_suite,
+    &dummy_test
+)
+
+AUM_TEST(test_run_report_create__should_not_segfault_when_malloc_returns_NULL)
 {
-    _subject = test_report_create(&dummy_test);
-    test_report_run(_subject);
-    test_report_destroy(_subject);
+    // TODO would be nicer to be able to write directly mock("malloc").will_return(NULL), or MOCK(malloc).will_return(NULL), or MOCK(malloc)->will_return(NULL)
+    aum_mock_will_return("malloc", 0);
+    aum_test_suite_t *suites[] = { &test_suite_test_run_report_dummy_test_suite };
+    test_run_report_t *subject = test_run_report_create(suites, 1);
+    test_run_report_destroy(subject);
 }
 
-AUM_TEST(test_report_destroy__should_not_segfault_on_NULL)
-{
-    test_report_destroy(NULL);
-}
 
-AUM_TEST_SUITE(test_suite_test_report,
-    &test_report_destroy__should_free_failure,
-    &test_report_destroy__should_not_segfault_on_NULL
+AUM_TEST_SUITE(test_suite_test_run_report,
+    &test_run_report_create__should_not_segfault_when_malloc_returns_NULL
 );

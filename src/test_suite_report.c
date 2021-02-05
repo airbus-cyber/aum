@@ -60,14 +60,13 @@ static test_report_t **_create_array_of_test_reports(aum_test_suite_t *test_suit
     if (tests == NULL) {
         return NULL;
     }
-
     for (unsigned int i = 0; i < test_count; i++) {
         aum_test_t *test = test_suite->tests[i];
         tests[i] = test_report_create(test);
     }
 
     if (_free_if_any_is_null(tests, test_count)) {
-        // TODO should free tests here!!!!
+        free(tests);
         return NULL;
     }
 

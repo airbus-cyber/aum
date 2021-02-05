@@ -58,7 +58,7 @@ static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_
     }
     if (_any_is_null(suites, test_suites_count)) {
         _free_all(suites, test_suites_count);
-// TODO        free(suites);
+        free(suites);
         return NULL;
     }
 
@@ -140,6 +140,9 @@ void test_run_report_print_xml(test_run_report_t *this, file_stream_t *output_st
 }
 
 void test_run_report_destroy(test_run_report_t *this) {
+    if (this == NULL) {
+        return;
+    }
     _destroy_array_of_test_suite_reports(this->suites, this->test_suites_count);
     free(this);
 }
