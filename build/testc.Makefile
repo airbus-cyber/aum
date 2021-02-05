@@ -68,12 +68,9 @@ TESTC_OBJ=$(patsubst $(TESTC_SRC_DIR)/%.c,$(OUTPUT_TESTC_OBJ_DIR)/%.o,$(TESTC_SR
 # Build rules                                                                  #
 ################################################################################
 
-TESTC_DEPENDS_CFLAGS = $(shell $(PKGCONFIG) --cflags $(TESTC_DEPENDS) 2> /dev/null)
-TESTC_DEPENDS_LDFLAGS = $(shell $(PKGCONFIG) --libs $(TESTC_DEPENDS) 2> /dev/null)
 TESTC_CFLAGS += $(CFLAGS)
 TESTC_CFLAGS += -I$(TESTC_INCLUDE_DIR)
 TESTC_LDFLAGS += $(LDFLAGS)
-TESTC_LDFLAGS += $(TESTC_DEPENDS_LDFLAGS)
 TESTC_LDFLAGS += -L$(RESULTS_BIN_DIR) -l$(NAME)
 
 $(OUTPUT_TESTC_BINARY): $(RESULTS_BINARY) $(TESTC_OBJ) | $(OUTPUT_TESTC_BIN_DIR)
