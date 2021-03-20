@@ -39,13 +39,21 @@ static bool _any_is_null(void *array, unsigned int count) {
     return false;
 }
 
-// TODO factor with _destroy_array_of_test_suite_reports and with code in test_suite_report
+// TODO factor with code in test_suite_report
 static void _free_all(void *array, unsigned int count) {
     void **elements = (void **) array;
     for (unsigned int i = 0; i < count; i++) {
         // TODO this is incorrect, it shouldn't be free but test_suite_report_destroy
-        free(elements[i]);
+        test_suite_report_destroy(elements[i]);
     }
+}
+
+static void _destroy_array_of_test_suite_reports(test_suite_report_t **suites, unsigned int test_suites_count) {
+    if (suites == NULL) {
+        return;
+    }
+    _free_all(suites, test_suites_count);
+    free(suites);
 }
 
 static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_t *test_suites[], unsigned int test_suites_count) {
@@ -63,16 +71,6 @@ static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_
     }
 
     return suites;
-}
-
-static void _destroy_array_of_test_suite_reports(test_suite_report_t **suites, unsigned int test_suites_count) {
-    if (suites == NULL) {
-        return;
-    }
-    for (unsigned int i = 0; i < test_suites_count; i++) {
-        test_suite_report_destroy(suites[i]);
-    }
-    free(suites);    
 }
 
 test_run_report_t *test_run_report_create(aum_test_suite_t *test_suites[], unsigned int test_suites_count) {
