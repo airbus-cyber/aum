@@ -160,6 +160,9 @@ void test_suite_report_print_xml(test_suite_report_t *this, file_stream_t *outpu
 }
 
 void test_suite_report_destroy(test_suite_report_t *this) {
+    if (this == NULL) {
+        return;
+    }
     _destroy_array_of_test_reports(this->tests, this->test_count);
     free(this);
 }

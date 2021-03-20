@@ -45,7 +45,12 @@ AUM_TEST(test_report_destroy__should_free_failure)
     test_suite_report_destroy(_subject);
 }
 
+AUM_TEST(test_report_destroy__should_not_segfault_on_NULL)
+{
+    test_suite_report_destroy(NULL);
+}
 
 AUM_TEST_SUITE(test_suite_test_suite_report,
-    &test_report_destroy__should_free_failure
+    &test_report_destroy__should_free_failure,
+    &test_report_destroy__should_not_segfault_on_NULL
 );
