@@ -43,7 +43,6 @@ static bool _any_is_null(void *array, unsigned int count) {
 static void _free_all(void *array, unsigned int count) {
     void **elements = (void **) array;
     for (unsigned int i = 0; i < count; i++) {
-        // TODO this is incorrect, it shouldn't be free but test_suite_report_destroy
         test_suite_report_destroy(elements[i]);
     }
 }
