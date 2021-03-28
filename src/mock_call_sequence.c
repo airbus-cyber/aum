@@ -22,7 +22,6 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
-#include <setjmp.h>
 #include <aum/mock.h>
 #include <mock_call_sequence.h>
 
