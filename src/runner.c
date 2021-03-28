@@ -21,7 +21,6 @@
 
 
 #include <stdlib.h>
-#include <setjmp.h>
 #include <mock_library.h>
 #include <test_run_report.h>
 #include <runner.h>
