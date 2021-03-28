@@ -24,7 +24,7 @@
 
 struct test_run_report_s {
     test_suite_report_t **suites;
-    unsigned int test_suites_count;
+    unsigned int suites_count;
     test_suite_report_t *current_suite;
 };
 
@@ -47,24 +47,24 @@ static void _free_all(void *array, unsigned int count) {
     }
 }
 
-static void _destroy_array_of_test_suite_reports(test_suite_report_t **suites, unsigned int test_suites_count) {
+static void _destroy_array_of_test_suite_reports(test_suite_report_t **suites, unsigned int suites_count) {
     if (suites == NULL) {
         return;
     }
-    _free_all(suites, test_suites_count);
+    _free_all(suites, suites_count);
     free(suites);
 }
 
-static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_t *test_suites[], unsigned int test_suites_count) {
-    test_suite_report_t **suites = calloc(sizeof(test_suite_report_t *), test_suites_count);
+static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_t *suite_definitions[], unsigned int suites_count) {
+    test_suite_report_t **suites = calloc(sizeof(test_suite_report_t *), suites_count);
     if (suites == NULL) {
         return NULL;
     }
-    for (unsigned int i = 0; i < test_suites_count; i++) {
-        suites[i] = test_suite_report_create(test_suites[i]);
+    for (unsigned int i = 0; i < suites_count; i++) {
+        suites[i] = test_suite_report_create(suite_definitions[i]);
     }
-    if (_any_is_null(suites, test_suites_count)) {
-        _free_all(suites, test_suites_count);
+    if (_any_is_null(suites, suites_count)) {
+        _free_all(suites, suites_count);
         free(suites);
         return NULL;
     }
@@ -72,26 +72,25 @@ static test_suite_report_t **_create_array_of_test_suite_reports(aum_test_suite_
     return suites;
 }
 
-test_run_report_t *test_run_report_create(aum_test_suite_t *test_suites[], unsigned int test_suites_count) {
-    test_suite_report_t **suites = _create_array_of_test_suite_reports(test_suites, test_suites_count);
+test_run_report_t *test_run_report_create(aum_test_suite_t *suite_definitions[], unsigned int suites_count) {
+    test_suite_report_t **suites = _create_array_of_test_suite_reports(suite_definitions, suites_count);
     test_run_report_t *this = malloc(sizeof(test_run_report_t));
 
     if (suites == NULL || this == NULL) {
-        _destroy_array_of_test_suite_reports(suites, test_suites_count);
+        _destroy_array_of_test_suite_reports(suites, suites_count);
         free(this);
         return NULL;
     }
 
     this->suites = suites;
-    // TODO for more regularity, rename into suites_count
-    this->test_suites_count = test_suites_count;
+    this->suites_count = suites_count;
 
     return this;
 }
 
 static void _run_all_tests(test_run_report_t *this)
 {
-    for (unsigned int i = 0; i < this->test_suites_count; i++) {
+    for (unsigned int i = 0; i < this->suites_count; i++) {
         this->current_suite = this->suites[i];
         test_suite_report_run(this->current_suite);
     }
@@ -102,11 +101,11 @@ static void _print_results(test_run_report_t *this)
     unsigned int ran_tests_count = 0;
     unsigned int ignored_tests_count = 0;
     unsigned int failed_tests_count = 0;
-    for (unsigned int i = 0; i < this->test_suites_count; i++) {
+    for (unsigned int i = 0; i < this->suites_count; i++) {
         test_suite_report_t *suite = this->suites[i];
         test_suite_report_increment_statistics(suite, &ran_tests_count, &ignored_tests_count, &failed_tests_count);
     }
-    printf("Test suites: %d\n", this->test_suites_count);
+    printf("Test suites: %d\n", this->suites_count);
     printf("Tests failed/executed: %d/%d\n", failed_tests_count, ran_tests_count);
     if (ignored_tests_count != 0) {
         printf("Tests skipped: %d\n", ignored_tests_count);
@@ -129,7 +128,7 @@ void test_run_report_print_xml(test_run_report_t *this, file_stream_t *output_st
     file_stream_write(output_stream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     file_stream_write(output_stream, "<testsuites>\n");
 
-    for (unsigned int i = 0; i < this->test_suites_count; i++) {
+    for (unsigned int i = 0; i < this->suites_count; i++) {
        test_suite_report_print_xml(this->suites[i], output_stream);
     }
 
@@ -140,6 +139,6 @@ void test_run_report_destroy(test_run_report_t *this) {
     if (this == NULL) {
         return;
     }
-    _destroy_array_of_test_suite_reports(this->suites, this->test_suites_count);
+    _destroy_array_of_test_suite_reports(this->suites, this->suites_count);
     free(this);
 }
