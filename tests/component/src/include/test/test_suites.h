@@ -25,7 +25,7 @@
 #include <aum.h>
 
 /*! \brief Suite de tests simple */
-aum_test_suite_t test_suite_simple;
+extern aum_test_suite_t test_suite_simple;
 
 /*! \brief Suite de tests avec utilisation des mocks */
-aum_test_suite_t test_suite_with_mock;
+extern aum_test_suite_t test_suite_with_mock;

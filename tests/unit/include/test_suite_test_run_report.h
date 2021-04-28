@@ -23,5 +23,5 @@
 #pragma once
 #include <aum.h>
 
-aum_test_suite_t test_suite_test_run_report;
+extern aum_test_suite_t test_suite_test_run_report;
 

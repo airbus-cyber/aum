@@ -30,7 +30,7 @@ PKG_SRC=$(wildcard $(SRC_DIR)/*.c)
 
 CFLAGS+=-Wall -Wextra -Werror -Wformat=2 -Wstrict-prototypes -Wcast-qual
 CFLAGS+=-Wvla -Wstack-protector -fstack-protector-all -fPIC
-CFLAGS+=-fno-builtin-strlen -std=c99
+CFLAGS+=-fno-builtin-strlen -fno-common -std=c99
 CFLAGS+=-I$(PUBLIC_INCLUDE_DIR) -I$(SRC_INCLUDE_DIR)
 
 CC=gcc

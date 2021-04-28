@@ -24,5 +24,5 @@
 
 #include <aum.h>
 
-aum_test_suite_t test_suite_test_suite_report;
+extern aum_test_suite_t test_suite_test_suite_report;
 
