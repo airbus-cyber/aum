@@ -54,9 +54,9 @@ Suite: test_suite_with_mock...
 	Test: AUM_ASSERT_WAS_CALLED_WITH__should_not_interleave_parameters... FAILED
 		tests/component/src/test_suite_with_mock.c:250 - AUM_ASSERT_WAS_CALLED_WITH("chmod", AUM_PARAMETER_STRING("path1"), AUM_PARAMETER_RAW(S_IWUSR))
 	Test: AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_print_in_case_of_failure... FAILED
-		tests/component/src/test_suite_with_mock.c:261 - AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
+		tests/component/src/test_suite_with_mock.c:260 - AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected)) - Expected to be called with 11, but was called with 10, as first argument
 	Test: AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure... FAILED
-		tests/component/src/test_suite_with_mock.c:266 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
+		tests/component/src/test_suite_with_mock.c:265 - AUM_ASSERT_CALL_COUNT_EQUAL("malloc", 1) - Function malloc expected to be called 1 time(s), but was called 0 time(s)
 	Test: method_with_va_list_argument__should_not_fail_when_called... SUCCESS
 	Test: longjmp_mock__should_not_fail_when_called... SUCCESS
 	Test: longjmp_mock__should_define_mock_to_do_nothing... SUCCESS

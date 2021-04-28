@@ -257,8 +257,7 @@ AUM_TEST(AUM_ASSERT_WAS_CALLED_WITH_AT__should_accept_additional_messages_to_pri
   AUM_ASSERT_PTR_NOT_NULL(test_ptr);
   free(test_ptr);
   int expected = TEST_PTR_SIZE + 1;
-  AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected), 
-                                " - Expected to be called with %d, but was called with %d, as first argument", expected, aum_mock_get_parameter_at("malloc", 0));
+  AUM_ASSERT_WAS_CALLED_WITH_AT("malloc", 0, AUM_PARAMETER_RAW(expected), " - Expected to be called with %d, but was called with %d, as first argument", expected, aum_mock_get_parameter_at("malloc", 0));
 }
 
 AUM_TEST(AUM_ASSERT_CALL_COUNT_EQUAL__should_indicated_actual_call_count_on_failure)
