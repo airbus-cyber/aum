@@ -12,4 +12,4 @@ jobs:
       - name: Configure
         run: ./configure
       - name: Build & package
-        run: make build doc dev_doc
+        run: make build doc dev_doc deb
