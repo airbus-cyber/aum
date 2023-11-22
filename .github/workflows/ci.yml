@@ -11,5 +11,7 @@ jobs:
         run: sudo apt-get install doxygen graphviz
       - name: Configure
         run: ./configure
+      - name: Run checks
+        run: make rungcov
       - name: Build & package
         run: make build doc dev_doc deb
