@@ -7,5 +7,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Configure
+        run: ./configure
       - name: Build
         run: make build
