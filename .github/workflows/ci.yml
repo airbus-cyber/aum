@@ -7,6 +7,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Install doxygen
+        run: sudo apt-get install doxygen
       - name: Configure
         run: ./configure
       - name: Build & package
