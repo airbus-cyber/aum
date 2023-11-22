@@ -1,0 +1,9 @@
+name: Continuous Integration
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
