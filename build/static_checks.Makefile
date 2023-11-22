@@ -67,7 +67,7 @@ cppcheck: | $(RESULTS_REPORT_DIR)
 	$(V) $(CPPCHECK) -I $(CONFIG_INCLUDEDIR) $(SRC_DIR) 2> $(RESULTS_REPORT_DIR)/cppcheck.xml
 
 help::
-	$(info sloccount      Runs cppcheck)
+	$(info cppcheck       Runs cppcheck)
 
 .PHONY: customcheck
 
