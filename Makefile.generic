@@ -110,7 +110,7 @@ include $(SCRIPT_DIR)/install.Makefile
 include $(SCRIPT_DIR)/deb.Makefile
 include $(SCRIPT_DIR)/rpm.Makefile
 
-include $(SCRIPT_DIR)/jenkins.Makefile
+include $(SCRIPT_DIR)/ci.Makefile
 
 ################################################################################
 # TODO everything after this point is specific and should be moved out of Makefile.generic

@@ -18,13 +18,11 @@
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 
-# use ci rather than jenkins?
-
 # TODO try to merge rungcov and valgrindu
-jenkins: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc debian version
+ci: rungcov valgrindu runtestc valgrindc sloccount doc dev_doc deb version
 
 .PHONY: jenkins
 
 help::
-	$(info jenkins        Calls all targets necessary for continuous integration in Jenkins)
+	$(info ci             Calls all targets necessary for continuous integration)
 
