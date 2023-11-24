@@ -12,6 +12,6 @@ jobs:
       - name: Configure
         run: ./configure
       - name: Run checks
-        run: make rungcov valgrindu runtestc valgrindc
+        run: make rungcov valgrindu runtestc valgrindc sloccount
       - name: Build & package
         run: make build doc dev_doc deb
