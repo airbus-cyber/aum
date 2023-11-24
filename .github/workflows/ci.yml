@@ -8,7 +8,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get install doxygen graphviz gcovr
+        run: sudo apt-get install doxygen graphviz gcovr valgrind
       - name: Configure
         run: ./configure
       - name: Run checks
