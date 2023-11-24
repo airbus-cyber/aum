@@ -9,7 +9,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Retrieve version number
         id: requestMakefile
-        working-directory: plugin
         run: |
           echo "VERSION=$(make help_version)" >> $GITHUB_OUTPUT
       - name: Install dependencies
