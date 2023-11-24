@@ -7,6 +7,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Retrieve version number
+        id: requestMakefile
+        working-directory: plugin
+        run: |
+          echo "VERSION=$(make help_version)" >> $GITHUB_OUTPUT
       - name: Install dependencies
         run: sudo apt-get install doxygen graphviz gcovr valgrind sloccount
       - name: Configure
@@ -15,3 +20,9 @@ jobs:
         run: make rungcov valgrindu runtestc valgrindc sloccount
       - name: Build & package
         run: make build doc dev_doc deb
+      - name: Archive .deb
+        uses: actions/upload-artifact@v3
+        with:
+          name: deb
+          path: ./results/artifacts/aum_${{ steps.requestMakefile.outputs.VERSION }}.deb
+          if-no-files-found: error
